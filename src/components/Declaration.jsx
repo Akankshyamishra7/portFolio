@@ -32,25 +32,10 @@ const Declaration = () => {
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <div className="card bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
               <h3 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
-                <span className="text-2xl">📞</span>
+                <span className="text-2xl">�</span>
                 Get In Touch
               </h3>
               <div className="space-y-4">
-                <a 
-                  href="tel:+919692353574" 
-                  className="flex items-center gap-3 p-3 bg-white rounded-lg hover:shadow-md transition-all duration-300 group"
-                >
-                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white">
-                    📱
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-800 group-hover:text-green-600">
-                      +91 (969) 235 3574
-                    </p>
-                    <p className="text-sm text-gray-600">Mobile</p>
-                  </div>
-                </a>
-                
                 <a 
                   href="mailto:akankshyam4@gmail.com" 
                   className="flex items-center gap-3 p-3 bg-white rounded-lg hover:shadow-md transition-all duration-300 group"
@@ -111,12 +96,6 @@ const Declaration = () => {
                   className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   Send Email
-                </a>
-                <a 
-                  href="tel:+919692353574"
-                  className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-                >
-                  Call Now
                 </a>
               </div>
             </div>

@@ -168,10 +168,6 @@ const Header = () => {
             ))}
             <div className="pt-4 border-t border-gray-200">
               <div className="flex flex-col space-y-3">
-                <a href="tel:+919692353574" className="flex items-center gap-3 text-gray-600 hover:text-blue-600 transition-colors">
-                  <span className="text-lg">📞</span>
-                  <span className="text-sm">+91 (969) 235 3574</span>
-                </a>
                 <a href="mailto:akankshyam4@gmail.com" className="flex items-center gap-3 text-gray-600 hover:text-blue-600 transition-colors">
                   <span className="text-lg">✉️</span>
                   <span className="text-sm">akankshyam4@gmail.com</span>

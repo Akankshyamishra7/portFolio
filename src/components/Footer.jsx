@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Github, Linkedin, Mail, Phone, MapPin, GraduationCap,
+  Github, Linkedin, Mail, MapPin, GraduationCap,
   Zap, Code, Atom, FileCode, Palette, GitBranch, Grid3X3, Smartphone, Wind
 } from 'lucide-react';
 
@@ -19,8 +19,7 @@ const Footer = () => {
   const socialLinks = [
     { name: 'GitHub', icon: Github, href: '#' },
     { name: 'LinkedIn', icon: Linkedin, href: '#' },
-    { name: 'Email', icon: Mail, href: 'mailto:akankshyam4@gmail.com' },
-    { name: 'Phone', icon: Phone, href: 'tel:+919692353574' }
+    { name: 'Email', icon: Mail, href: 'mailto:akankshyam4@gmail.com' }
   ];
 
   const scrollToTop = () => {
