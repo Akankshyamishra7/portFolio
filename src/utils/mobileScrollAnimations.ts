@@ -1,6 +1,6 @@
 // Simplified scroll animations for all devices
-export const initMobileScrollAnimations = () => {
-  const observerOptions = {
+export const initMobileScrollAnimations = (): IntersectionObserver => {
+  const observerOptions: IntersectionObserverInit = {
     threshold: 0.1,
     rootMargin: '0px 0px -10% 0px'
   };
@@ -8,14 +8,14 @@ export const initMobileScrollAnimations = () => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        const element = entry.target;
+        const element = entry.target as HTMLElement;
         
         // Simple, professional animations
         element.classList.remove('card-animate', 'project-card-animate');
         element.classList.add('visible');
         
         // Handle nested elements
-        const children = element.querySelectorAll('.stagger-child');
+        const children = element.querySelectorAll<HTMLElement>('.stagger-child');
         children.forEach((child, childIndex) => {
           setTimeout(() => {
             child.style.transform = 'translateY(0)';
@@ -43,7 +43,7 @@ export const initMobileScrollAnimations = () => {
 };
 
 // Touch-friendly scroll detection
-export const initTouchScrollAnimations = () => {
+export const initTouchScrollAnimations = (): (() => void) => {
   let isScrolling = false;
   
   const handleScroll = () => {
@@ -52,7 +52,7 @@ export const initTouchScrollAnimations = () => {
       
       // Trigger animation check on scroll
       requestAnimationFrame(() => {
-        const elements = document.querySelectorAll('.card:not(.animate), .project-card:not(.animate)');
+        const elements = document.querySelectorAll<HTMLElement>('.card:not(.animate), .project-card:not(.animate)');
         elements.forEach(element => {
           const rect = element.getBoundingClientRect();
           const windowHeight = window.innerHeight;
@@ -79,7 +79,7 @@ export const initTouchScrollAnimations = () => {
 };
 
 // Initialize all mobile scroll animations
-export const initAllMobileAnimations = () => {
+export const initAllMobileAnimations = (): (() => void) => {
   const isMobile = window.innerWidth <= 768;
   
   if (isMobile) {
@@ -92,6 +92,7 @@ export const initAllMobileAnimations = () => {
     };
   } else {
     // Use regular animations for desktop
-    return initMobileScrollAnimations();
+    const observer = initMobileScrollAnimations();
+    return () => observer.disconnect();
   }
 };

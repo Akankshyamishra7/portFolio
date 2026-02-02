@@ -1,7 +1,7 @@
 import React from 'react';
 import { useScreenReader } from '../hooks/useAccessibility';
 
-const AccessibilityAnnouncer = () => {
+const AccessibilityAnnouncer: React.FC = () => {
   const { announcement } = useScreenReader();
 
   return (
