@@ -1,70 +1,80 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
-import ProfileSummary from './components/ProfileSummary';
-import AccessibilityAnnouncer from './components/AccessibilityAnnouncer';
-import { initAllMobileAnimations } from './utils/mobileScrollAnimations';
-
-// Lazy load less critical components for better performance
-const Education = lazy(() => import('./components/Education'));
-const TechnicalSkills = lazy(() => import('./components/TechnicalSkills'));
-const Projects = lazy(() => import('./components/Projects'));
-const Hackathon = lazy(() => import('./components/Hackathon'));
-const CoreCompetencies = lazy(() => import('./components/CoreCompetencies'));
-const Declaration = lazy(() => import('./components/Declaration'));
-const Footer = lazy(() => import('./components/Footer'));
-
-// Loading component for better UX
-const SectionLoader: React.FC = () => (
-  <div className="section-padding">
-    <div className="container mx-auto container-padding">
-      <div className="lazy-placeholder max-w-4xl mx-auto">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto"></div>
-      </div>
-    </div>
-  </div>
-);
+import Hero from './components/Hero';
+import AboutSkills from './components/AboutSkills';
+import Projects from './components/Projects';
+import Feed from './components/Feed';
+import ExperienceEducation from './components/ExperienceEducation';
+import Footer from './components/Footer';
+import ResumeModal from './components/ResumeModal';
+import ArticlesModal from './components/ArticlesModal';
+import ContactModal from './components/ContactModal';
 
 function App() {
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [isArticlesOpen, setIsArticlesOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+
   useEffect(() => {
-    // Scroll to top on initial load
     window.scrollTo(0, 0);
-    // Initialize simplified scroll animations
-    const cleanup = initAllMobileAnimations();
-    return () => {
-      if (cleanup && typeof cleanup === 'function') {
-        cleanup();
-      }
-    };
   }, []);
 
+  const scrollToFeed = () => {
+    const el = document.getElementById('feed');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-black gpu-accelerated">
-      <AccessibilityAnnouncer />
-      <Header />
-      <main id="main-content" tabIndex={-1} role="main" aria-label="Main content">
-        <ProfileSummary />
-        <Suspense fallback={<SectionLoader />}>
-          <Education />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <TechnicalSkills />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <Projects />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <Hackathon />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <CoreCompetencies />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <Declaration />
-        </Suspense>
+    <div className="min-h-screen bg-[#0a0a0c] text-white selection:bg-white selection:text-black">
+      {/* Top Navigation */}
+      <Header 
+        onOpenArticles={() => setIsArticlesOpen(true)}
+        onOpenResume={() => setIsResumeOpen(true)}
+      />
+
+      {/* Main Sections */}
+      <main id="main-content">
+        {/* Section 1: Hero (Matching Screenshot 1) */}
+        <Hero 
+          onOpenResume={() => setIsResumeOpen(true)}
+        />
+
+        {/* Section 2: About & Skills (Taisia 4-Card System) */}
+        <AboutSkills />
+
+        {/* Section 3: Projects (Horizontal/Interactive Cards) */}
+        <Projects />
+
+        {/* Section 4: Feed (Matching Screenshot 2) */}
+        <Feed />
+
+        {/* Section 5: Experience & Education Timeline */}
+        <ExperienceEducation />
       </main>
-      <Suspense fallback={<SectionLoader />}>
-        <Footer />
-      </Suspense>
+
+      {/* Section 6: Footer & Contacts (Matching Screenshot 3) */}
+      <Footer 
+        onOpenContact={() => setIsContactOpen(true)}
+      />
+
+      {/* Interactive Modals */}
+      <ResumeModal
+        isOpen={isResumeOpen}
+        onClose={() => setIsResumeOpen(false)}
+      />
+
+      <ArticlesModal
+        isOpen={isArticlesOpen}
+        onClose={() => setIsArticlesOpen(false)}
+        onScrollToFeed={scrollToFeed}
+      />
+
+      <ContactModal
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+      />
     </div>
   );
 }

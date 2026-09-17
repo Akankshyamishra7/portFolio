@@ -1,159 +1,146 @@
 import React from 'react';
-import { HiLocationMarker, HiAcademicCap, HiArrowUp, HiHeart } from 'react-icons/hi';
 import { 
-  FiGithub, FiLinkedin, FiMail, FiGitBranch
-} from 'react-icons/fi';
-import { 
-  SiJavascript, SiPython, SiReact, SiHtml5, 
-  SiCss3, SiBootstrap, SiMui, SiTailwindcss 
-} from 'react-icons/si';
+  FaGithub, 
+  FaLinkedinIn, 
+  FaTelegram, 
+  FaFacebookF, 
+  FaInstagram,
+  FaEnvelope 
+} from 'react-icons/fa6';
+import { portfolioData, SocialLink } from '../data/portfolioData';
 
-interface QuickLink {
-  name: string;
-  href: string;
+interface FooterProps {
+  onOpenContact?: () => void;
 }
 
-interface SocialLink {
-  name: string;
-  icon: React.ElementType;
-  href: string;
-}
+const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
+  const { profile, socials, footer } = portfolioData;
 
-const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
-
-  const quickLinks: QuickLink[] = [
-    { name: 'Profile', href: '#profile-summary' },
-    { name: 'Education', href: '#education' },
-    { name: 'Skills', href: '#technical-skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Experience', href: '#hackathon' },
-    { name: 'Contact', href: '#declaration' }
-  ];
-
-  const socialLinks: SocialLink[] = [
-    { name: 'GitHub', icon: FiGithub, href: '#' },
-    { name: 'LinkedIn', icon: FiLinkedin, href: '#' },
-    { name: 'Email', icon: FiMail, href: 'mailto:akankshyam4@gmail.com' }
-  ];
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
+  const renderContactIcon = (name: string) => {
+    switch (name.toLowerCase()) {
+      case 'e-mail':
+      case 'email':
+        return <FaEnvelope className="w-3.5 h-3.5" />;
+      case 'github':
+        return <FaGithub className="w-3.5 h-3.5" />;
+      case 'linkedin':
+        return <FaLinkedinIn className="w-3.5 h-3.5 text-blue-400" />;
+      case 'telegram':
+        return <FaTelegram className="w-3.5 h-3.5 text-sky-400" />;
+      case 'facebook':
+        return <FaFacebookF className="w-3.5 h-3.5 text-blue-500" />;
+      case 'instagram':
+        return <FaInstagram className="w-3.5 h-3.5 text-pink-400" />;
+      default:
+        return <FaGithub className="w-3.5 h-3.5" />;
+    }
+  };
+
+  // Contacts pill list matching Screenshot 3: E-Mail, Github, Linkedin, Telegram, Facebook, Instagram
+  const contactPills = [
+    { name: "E-Mail", url: "mailto:akankshyam4@gmail.com", isMail: true },
+    ...socials
+  ];
+
   return (
-    <footer className="bg-gray-950 text-white border-t border-green-900/30">
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
-          <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent mb-4 font-serif">
-              Akankshya Mishra
-            </h3>
-            <p className="text-gray-400 mb-4 leading-relaxed">
-              Computer Science Engineering student passionate about creating innovative solutions 
-              and building meaningful software that makes a difference.
-            </p>
-            <div className="flex items-center gap-4 text-sm text-gray-500 font-mono">
-              <span className="flex items-center gap-1">
-                <HiLocationMarker className="w-4 h-4 text-green-400" /> Odisha, India
-              </span>
-              <span className="flex items-center gap-1">
-                <HiAcademicCap className="w-4 h-4 text-green-400" /> ITER, SOA University
-              </span>
+    <footer id="contacts" className="relative pt-20 pb-12 bg-[#090a0c] border-t border-white/10 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-16">
+          {/* Left Column: Massive Stacked Name & Subtitle matching Screenshot 3 */}
+          <div className="lg:col-span-6 flex flex-col justify-between">
+            <div>
+              <h2 className="font-serif font-bold text-[14vw] sm:text-[10vw] lg:text-[7rem] leading-[0.88] text-white tracking-tight select-none">
+                {profile.firstName}
+              </h2>
+              <h2 className="font-serif font-bold text-[14vw] sm:text-[10vw] lg:text-[7rem] leading-[0.88] text-white tracking-tight select-none mt-1">
+                {profile.lastName}
+              </h2>
+            </div>
+            <div className="mt-6 text-gray-400 font-sans text-xs sm:text-sm tracking-wide">
+              <p>Full-stack</p>
+              <p>developer</p>
             </div>
           </div>
-          
-          <div>
-            <h4 className="text-lg font-semibold mb-4 text-white font-serif">Quick Links</h4>
-            <ul className="space-y-2">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
-                  <a 
-                    href={link.href}
-                    className="text-gray-400 hover:text-green-400 transition-colors duration-300 text-sm font-mono"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h4 className="text-lg font-semibold mb-4 text-white font-serif">Connect</h4>
-            <div className="space-y-3">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  className="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors duration-300 text-sm font-mono"
-                >
-                  {React.createElement(social.icon, { className: "w-4 h-4" })}
-                  {social.name}
-                </a>
-              ))}
+
+          {/* Right Column: Monospace Tag, Nav Links, and Info Card matching Screenshot 3 */}
+          <div className="lg:col-span-6 flex flex-col items-start lg:items-end justify-between h-full space-y-8">
+            {/* Monospace Header Tag */}
+            <div className="font-mono text-sm sm:text-base font-bold text-white tracking-wider">
+              ... /Contacts ...
             </div>
-          </div>
-        </div>
-        
-        <div className="mt-12 pt-8 border-t border-gray-800">
-          <div className="text-center">
-            <h4 className="text-lg font-semibold mb-4 text-white font-serif">Technologies I Work With</h4>
-            <div className="flex flex-wrap justify-center gap-3">
-              <span className="flex items-center gap-1 bg-gray-900 text-gray-300 px-3 py-1 rounded-full text-sm border border-gray-800 hover:border-green-500 hover:text-green-400 transition-all duration-300 font-mono">
-                <SiJavascript className="w-4 h-4" /> JavaScript
-              </span>
-              <span className="flex items-center gap-1 bg-gray-900 text-gray-300 px-3 py-1 rounded-full text-sm border border-gray-800 hover:border-green-500 hover:text-green-400 transition-all duration-300 font-mono">
-                <SiPython className="w-4 h-4" /> Python
-              </span>
-              <span className="flex items-center gap-1 bg-gray-900 text-gray-300 px-3 py-1 rounded-full text-sm border border-gray-800 hover:border-green-500 hover:text-green-400 transition-all duration-300 font-mono">
-                <SiReact className="w-4 h-4" /> ReactJS
-              </span>
-              <span className="flex items-center gap-1 bg-gray-900 text-gray-300 px-3 py-1 rounded-full text-sm border border-gray-800 hover:border-green-500 hover:text-green-400 transition-all duration-300 font-mono">
-                <SiHtml5 className="w-4 h-4" /> HTML
-              </span>
-              <span className="flex items-center gap-1 bg-gray-900 text-gray-300 px-3 py-1 rounded-full text-sm border border-gray-800 hover:border-green-500 hover:text-green-400 transition-all duration-300 font-mono">
-                <SiCss3 className="w-4 h-4" /> CSS
-              </span>
-              <span className="flex items-center gap-1 bg-gray-900 text-gray-300 px-3 py-1 rounded-full text-sm border border-gray-800 hover:border-green-500 hover:text-green-400 transition-all duration-300 font-mono">
-                <FiGitBranch className="w-4 h-4" /> Git
-              </span>
-              <span className="flex items-center gap-1 bg-gray-900 text-gray-300 px-3 py-1 rounded-full text-sm border border-gray-800 hover:border-green-500 hover:text-green-400 transition-all duration-300 font-mono">
-                <FiGithub className="w-4 h-4" /> GitHub
-              </span>
-              <span className="flex items-center gap-1 bg-gray-900 text-gray-300 px-3 py-1 rounded-full text-sm border border-gray-800 hover:border-green-500 hover:text-green-400 transition-all duration-300 font-mono">
-                <SiBootstrap className="w-4 h-4" /> Bootstrap
-              </span>
-              <span className="flex items-center gap-1 bg-gray-900 text-gray-300 px-3 py-1 rounded-full text-sm border border-gray-800 hover:border-green-500 hover:text-green-400 transition-all duration-300 font-mono">
-                <SiMui className="w-4 h-4" /> Material UI
-              </span>
-              <span className="flex items-center gap-1 bg-gray-900 text-gray-300 px-3 py-1 rounded-full text-sm border border-gray-800 hover:border-green-500 hover:text-green-400 transition-all duration-300 font-mono">
-                <SiTailwindcss className="w-4 h-4" /> Tailwind CSS
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div className="border-t border-gray-900 bg-black">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="text-gray-500 text-sm mb-4 md:mb-0 font-mono">
-              © {currentYear} Akankshya Mishra. All rights reserved.
-            </div>
-            
-            <div className="flex items-center gap-6">
+
+            {/* Clean Navigation Links */}
+            <nav className="flex items-center flex-wrap gap-6 sm:gap-8 font-sans text-xs sm:text-sm text-gray-400">
               <button
-                onClick={scrollToTop}
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:shadow-lg hover:shadow-green-500/30 transform hover:scale-105 flex items-center gap-2 font-mono uppercase tracking-wider"
+                onClick={() => scrollToSection('contacts')}
+                className="hover:text-white transition-colors cursor-pointer"
               >
-                Back to Top <HiArrowUp className="w-4 h-4" />
+                Connect
               </button>
-              <div className="text-gray-500 text-sm flex items-center gap-1 font-mono">
-                Built with <HiHeart className="text-green-500 w-4 h-4" /> using React & Tailwind
+              <button
+                onClick={() => scrollToSection('about')}
+                className="hover:text-white transition-colors cursor-pointer"
+              >
+                About
+              </button>
+              <button
+                onClick={() => scrollToSection('projects')}
+                className="hover:text-white transition-colors cursor-pointer"
+              >
+                Projects
+              </button>
+              <a
+                href={portfolioData.socials.find(s => s.name.toLowerCase() === 'github')?.url || 'https://github.com'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                Source
+              </a>
+            </nav>
+
+            {/* Info Box matching Screenshot 3 */}
+            <div className="border border-white/20 rounded-2xl p-5 bg-[#121316]/60 backdrop-blur-md w-full max-w-sm shadow-xl">
+              <p className="font-mono text-sm text-white font-bold mb-3">
+                {footer.years}
+              </p>
+              <div className="font-mono text-xs text-gray-400 space-y-1">
+                <p>{footer.handcrafted}</p>
+                <p>{footer.designedBy}</p>
+                <p>{footer.poweredBy}</p>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Bottom Social / Contact Pills Bar matching Screenshot 3 */}
+        <div className="pt-10 border-t border-white/10 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+          {contactPills.map((pill, index) => (
+            <a
+              key={index}
+              href={pill.url}
+              onClick={(e) => {
+                if (pill.isMail && onOpenContact) {
+                  e.preventDefault();
+                  onOpenContact();
+                }
+              }}
+              target={pill.isMail ? undefined : "_blank"}
+              rel="noopener noreferrer"
+              className="pill-btn"
+              aria-label={`Contact via ${pill.name}`}
+            >
+              {renderContactIcon(pill.name)}
+              <span className="font-medium text-xs sm:text-sm">{pill.name}</span>
+            </a>
+          ))}
         </div>
       </div>
     </footer>

@@ -1,195 +1,176 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { FaGithub } from 'react-icons/fa6';
+import { portfolioData } from '../data/portfolioData';
 
-import { useFocusManagement, useKeyboardNavigation } from '../hooks/useAccessibility';
-import { HiMail } from 'react-icons/hi';
-
-interface NavItem {
-  label: string;
-  id: string;
+interface HeaderProps {
+  onOpenArticles?: () => void;
+  onOpenResume?: () => void;
 }
 
-const Header: React.FC = () => {
+const Header: React.FC<HeaderProps> = ({ onOpenArticles, onOpenResume }) => {
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  
-  // Refs for accessibility
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
-  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
-  
-  // Accessibility hooks
-  const { trapFocus } = useFocusManagement();
-
-  // Memoized scroll handler to prevent unnecessary re-renders
-  const handleScroll = useCallback(() => {
-    setIsScrolled(window.scrollY > 50);
-  }, []);
+  const { profile } = portfolioData;
 
   useEffect(() => {
-    // Use passive listener for better scroll performance
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+  }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
+  const scrollToSection = (id: string) => {
+    setIsMobileMenuOpen(false);
+    const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
     }
   };
-
-  const toggleMobileMenu = () => {
-    const newState = !isMobileMenuOpen;
-    setIsMobileMenuOpen(newState);
-    
-    if (newState && mobileMenuRef.current) {
-      trapFocus(mobileMenuRef.current);
-    } else if (!newState && mobileMenuButtonRef.current) {
-      mobileMenuButtonRef.current.focus();
-    }
-  };
-
-  useKeyboardNavigation(
-    null,
-    () => {
-      if (isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-        mobileMenuButtonRef.current?.focus();
-      }
-    },
-    null
-  );
-
-  const navItems: NavItem[] = [
-    { label: 'About', id: 'profile-summary' },
-    { label: 'Education', id: 'education' },
-    { label: 'Skills', id: 'technical-skills' },
-    { label: 'Projects', id: 'projects' },
-    { label: 'Experience', id: 'hackathon' },
-  ];
 
   return (
-    <>
-      <a 
-        href="#main-content" 
-        className="skip-link focus-visible"
-        onClick={(e) => {
-          e.preventDefault();
-          const mainContent = document.getElementById('main-content');
-          mainContent?.focus();
-          mainContent?.scrollIntoView({ behavior: 'smooth' });
-        }}
-      >
-        Skip to main content
-      </a>
-      
-      <header 
-        className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-black/95 backdrop-blur-md shadow-lg shadow-green-500/10 border-b border-green-900/50' : 'bg-black/80 backdrop-blur-sm'
-        }`}
-        role="banner"
-        aria-label="Site header"
-      >
-        <div className="container mx-auto container-padding py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex-shrink-0">
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold gradient-text font-serif tracking-wide">
-                AKANKSHYA MISHRA
-              </h1>
-              <p className="text-gray-400 font-mono text-xs sm:text-sm hidden sm:block tracking-widest uppercase">
-                Developer | Student
-              </p>
-            </div>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-[#0b0c0e]/90 backdrop-blur-md border-b border-white/10 py-3 shadow-xl'
+          : 'bg-transparent py-5 sm:py-7'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between">
+        {/* Left: Stacked Name */}
+        <a
+          href="#hero"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToSection('hero');
+          }}
+          className="group flex flex-col font-serif font-bold text-base sm:text-lg tracking-tight leading-tight text-white hover:opacity-80 transition-opacity"
+        >
+          <span>{profile.firstName}</span>
+          <span>{profile.lastName}</span>
+        </a>
 
-            <nav className="hidden lg:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="text-gray-300 hover:text-green-400 font-mono font-medium transition-all duration-300 hover:scale-105 focus-ring px-3 py-2 text-sm tracking-wide"
-                >
-                  {item.label}
-                </button>
-              ))}
-            </nav>
-
-            <button
-              onClick={() => scrollToSection('declaration')}
-              className="btn-primary hidden lg:inline-flex"
-            >
-              Get In Touch
-            </button>
-
-            <button
-              ref={mobileMenuButtonRef}
-              onClick={toggleMobileMenu}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-900 transition-colors duration-200 focus-ring group"
-              aria-label="Toggle mobile menu"
-              aria-expanded={isMobileMenuOpen}
-            >
-              <div className="w-6 h-5 relative flex flex-col justify-between">
-                <span 
-                  className={`block h-0.5 w-full bg-green-400 rounded-full transition-all duration-300 ease-in-out origin-center ${
-                    isMobileMenuOpen 
-                      ? 'rotate-45 translate-y-[9px] bg-green-300' 
-                      : 'group-hover:bg-green-300 group-hover:w-4'
-                  }`}
-                />
-                <span 
-                  className={`block h-0.5 bg-green-400 rounded-full transition-all duration-300 ease-in-out ${
-                    isMobileMenuOpen 
-                      ? 'opacity-0 translate-x-4' 
-                      : 'w-full group-hover:bg-green-300'
-                  }`}
-                />
-                <span 
-                  className={`block h-0.5 w-full bg-green-400 rounded-full transition-all duration-300 ease-in-out origin-center ${
-                    isMobileMenuOpen 
-                      ? '-rotate-45 -translate-y-[9px] bg-green-300' 
-                      : 'group-hover:bg-green-300 group-hover:w-5 group-hover:ml-auto'
-                  }`}
-                />
-              </div>
-            </button>
-          </div>
-
-          <div 
-            ref={mobileMenuRef}
-            className={`lg:hidden transition-all duration-300 ease-in-out ${
-              isMobileMenuOpen 
-                ? 'max-h-96 opacity-100 mt-4 pb-4' 
-                : 'max-h-0 opacity-0 overflow-hidden'
-            }`}
+        {/* Center: Navigation Links for Desktop */}
+        <nav className="hidden md:flex items-center space-x-6 text-sm font-sans text-gray-300">
+          <button
+            onClick={() => scrollToSection('about')}
+            className="hover:text-white transition-colors cursor-pointer"
           >
-            <nav className="flex flex-col space-y-2">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="mobile-menu-item"
-                >
-                  {item.label}
-                </button>
-              ))}
-              <div className="pt-4 border-t border-gray-800">
-                <div className="flex flex-col space-y-3">
-                  <a href="mailto:akankshyam4@gmail.com" className="flex items-center gap-3 text-gray-400 hover:text-green-400 transition-colors">
-                    <HiMail className="text-lg text-green-400" />
-                    <span className="text-sm">akankshyam4@gmail.com</span>
-                  </a>
-                  <button
-                    onClick={() => scrollToSection('declaration')}
-                    className="btn-primary mt-4"
-                  >
-                    Get In Touch
-                  </button>
-                </div>
-              </div>
-            </nav>
+            About
+          </button>
+          <button
+            onClick={() => scrollToSection('projects')}
+            className="hover:text-white transition-colors cursor-pointer"
+          >
+            Projects
+          </button>
+          <button
+            onClick={() => scrollToSection('feed')}
+            className="hover:text-white transition-colors cursor-pointer"
+          >
+            Feed
+          </button>
+          <button
+            onClick={() => scrollToSection('experience')}
+            className="hover:text-white transition-colors cursor-pointer"
+          >
+            Experience
+          </button>
+          <button
+            onClick={() => scrollToSection('contacts')}
+            className="hover:text-white transition-colors cursor-pointer"
+          >
+            Contact
+          </button>
+        </nav>
+
+        {/* Right: Articles pill & GitHub circle button */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => {
+              if (onOpenArticles) onOpenArticles();
+              else scrollToSection('feed');
+            }}
+            className="pill-nav cursor-pointer"
+            aria-label="View Articles and Feed"
+          >
+            Articles
+          </button>
+
+          <a
+            href={portfolioData.socials.find(s => s.name.toLowerCase() === 'github')?.url || 'https://github.com'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="circle-btn"
+            aria-label="GitHub Profile"
+          >
+            <FaGithub className="w-4 h-4" />
+          </a>
+
+          {/* Mobile hamburger toggle */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-1.5 rounded-lg text-gray-400 hover:text-white focus:outline-none"
+            aria-label="Toggle menu"
+          >
+            <div className="w-5 h-4 flex flex-col justify-between">
+              <span className={`block h-0.5 w-full bg-white transition-transform ${isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
+              <span className={`block h-0.5 w-full bg-white transition-opacity ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
+              <span className={`block h-0.5 w-full bg-white transition-transform ${isMobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+            </div>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Drawer Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-[#0e0f12]/95 backdrop-blur-xl border-b border-white/10 px-6 py-5 shadow-2xl animate-fade-in-up">
+          <div className="flex flex-col space-y-4 text-sm font-mono text-gray-300">
+            <button
+              onClick={() => scrollToSection('about')}
+              className="text-left py-1 hover:text-white"
+            >
+              ./About me
+            </button>
+            <button
+              onClick={() => scrollToSection('projects')}
+              className="text-left py-1 hover:text-white"
+            >
+              ./Projects
+            </button>
+            <button
+              onClick={() => scrollToSection('feed')}
+              className="text-left py-1 hover:text-white"
+            >
+              ./Feed
+            </button>
+            <button
+              onClick={() => scrollToSection('experience')}
+              className="text-left py-1 hover:text-white"
+            >
+              ./Experience & Education
+            </button>
+            <button
+              onClick={() => scrollToSection('contacts')}
+              className="text-left py-1 hover:text-white"
+            >
+              ./Contacts
+            </button>
+            {onOpenResume && (
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onOpenResume();
+                }}
+                className="mt-2 text-left text-white bg-white/10 px-4 py-2 rounded-full w-max border border-white/20"
+              >
+                Resume... ↓
+              </button>
+            )}
           </div>
         </div>
-      </header>
-    </>
+      )}
+    </header>
   );
 };
 
