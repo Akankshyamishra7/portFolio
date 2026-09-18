@@ -7,10 +7,16 @@ import {
   FaInstagram,
   FaEnvelope 
 } from 'react-icons/fa6';
-import { portfolioData, SocialLink } from '../data/portfolioData';
+import { portfolioData } from '../data/portfolioData';
 
 interface FooterProps {
   onOpenContact?: () => void;
+}
+
+interface ContactPill {
+  name: string;
+  url: string;
+  isMail?: boolean;
 }
 
 const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
@@ -44,7 +50,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
   };
 
   // Contacts pill list matching Screenshot 3: E-Mail, Github, Linkedin, Telegram, Facebook, Instagram
-  const contactPills = [
+  const contactPills: ContactPill[] = [
     { name: "E-Mail", url: "mailto:akankshyam4@gmail.com", isMail: true },
     ...socials
   ];
