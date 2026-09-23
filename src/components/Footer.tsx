@@ -23,80 +23,43 @@ interface FooterProps {
   onOpenContact?: () => void;
 }
 
-interface ContactPill {
-  name: string;
-  url: string;
-  isMail?: boolean;
-}
-
 const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
-  const { profile, socials, footer } = portfolioData;
+  const { profile, socials } = portfolioData;
 
   const footerRef = useRef<HTMLElement>(null);
-  const firstNameRef = useRef<HTMLHeadingElement>(null);
-  const lastNameRef = useRef<HTMLHeadingElement>(null);
-  const marqueeInnerRef = useRef<HTMLDivElement>(null);
-  const pillsRef = useRef<HTMLDivElement>(null);
-  const infoBoxRef = useRef<HTMLDivElement>(null);
+  const contactHeadRef = useRef<HTMLDivElement>(null);
+  const wordmarkRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Massive Name Typography Reveal with letter-spacing tracking
-      if (firstNameRef.current && lastNameRef.current) {
-        gsap.from([firstNameRef.current, lastNameRef.current], {
+      // Contact prompt reveal
+      if (contactHeadRef.current) {
+        gsap.from(contactHeadRef.current.children, {
           scrollTrigger: {
-            trigger: footerRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-          y: 80,
-          opacity: 0,
-          letterSpacing: '0.2em',
-          stagger: 0.12,
-          duration: 1.2,
-          ease: 'power4.out',
-        });
-      }
-
-      // 2. Info Box & Nav entrance
-      if (infoBoxRef.current) {
-        gsap.from(infoBoxRef.current, {
-          scrollTrigger: {
-            trigger: infoBoxRef.current,
-            start: 'top 90%',
-            toggleActions: 'play none none none',
-          },
-          scale: 0.92,
-          opacity: 0,
-          duration: 0.8,
-          ease: 'back.out(1.5)',
-        });
-      }
-
-      // 3. Staggered Contact Pills Entrance
-      if (pillsRef.current?.children) {
-        gsap.from(pillsRef.current.children, {
-          scrollTrigger: {
-            trigger: pillsRef.current,
-            start: 'top 92%',
+            trigger: contactHeadRef.current,
+            start: 'top 85%',
             toggleActions: 'play none none none',
           },
           y: 40,
-          scale: 0.85,
           opacity: 0,
-          stagger: 0.08,
-          duration: 0.8,
-          ease: 'back.out(1.6)',
+          stagger: 0.12,
+          duration: 0.9,
+          ease: 'power3.out',
         });
       }
 
-      // 4. Infinite Smooth Marquee Ticker with GSAP
-      if (marqueeInnerRef.current) {
-        gsap.to(marqueeInnerRef.current, {
-          xPercent: -50,
-          repeat: -1,
-          duration: 25,
-          ease: 'none',
+      // Giant wordmark entrance
+      if (wordmarkRef.current) {
+        gsap.from(wordmarkRef.current, {
+          scrollTrigger: {
+            trigger: wordmarkRef.current,
+            start: 'top 95%',
+            toggleActions: 'play none none none',
+          },
+          y: 60,
+          opacity: 0,
+          duration: 1.2,
+          ease: 'power4.out',
         });
       }
     }, footerRef);
@@ -115,186 +78,170 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const renderContactIcon = (name: string) => {
-    switch (name.toLowerCase()) {
-      case 'e-mail':
-      case 'email':
-        return <FaEnvelope className="w-3.5 h-3.5" />;
-      case 'github':
-        return <FaGithub className="w-3.5 h-3.5" />;
-      case 'linkedin':
-        return <FaLinkedinIn className="w-3.5 h-3.5 text-blue-400" />;
-      case 'telegram':
-        return <FaTelegram className="w-3.5 h-3.5 text-sky-400" />;
-      case 'facebook':
-        return <FaFacebookF className="w-3.5 h-3.5 text-blue-500" />;
-      case 'instagram':
-        return <FaInstagram className="w-3.5 h-3.5 text-pink-400" />;
-      default:
-        return <FaGithub className="w-3.5 h-3.5" />;
-    }
-  };
-
-  const contactPills: ContactPill[] = [
-    { name: "E-Mail", url: "mailto:akankshyam4@gmail.com", isMail: true },
-    ...socials
-  ];
-
-  const marqueeItems = [
-    "FULL-STACK DEVELOPER",
-    "NEXT.JS & REACT 19",
-    "GSAP HEAVY ANIMATION",
-    "CLEAN & MAINTAINABLE CODE",
-    "TYPESCRIPT",
-    "NODEJS & EXPRESS",
-    "SCALABLE ARCHITECTURE",
-    "TAILWIND CSS",
-    "WCAG ACCESSIBILITY",
-    "CONTINUOUS INNOVATION",
-  ];
-
   return (
     <footer
       ref={footerRef}
       id="contacts"
-      className="relative pt-16 pb-12 bg-[#090a0c] border-t border-white/10 overflow-hidden"
+      className="relative pt-24 pb-12 bg-[#0E0E0D] border-t border-white/10 overflow-hidden"
     >
-      {/* Infinite GSAP Marquee Ticker */}
-      <div className="w-full overflow-hidden border-b border-white/10 py-4 mb-16 bg-[#0c0d10] select-none">
-        <div ref={marqueeInnerRef} className="flex whitespace-nowrap will-change-transform">
-          {[...marqueeItems, ...marqueeItems].map((item, idx) => (
-            <span
-              key={idx}
-              className="inline-flex items-center mx-6 font-mono text-xs sm:text-sm tracking-widest text-gray-400"
-            >
-              <span className="text-white font-bold">{item}</span>
-              <span className="mx-4 text-emerald-400">✦</span>
-            </span>
-          ))}
-        </div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-16">
-          {/* Left Column: Massive Stacked Name & Subtitle */}
-          <div className="lg:col-span-6 flex flex-col justify-between">
-            <div className="overflow-hidden py-1">
-              <h2
-                ref={firstNameRef}
-                className="font-serif font-bold text-[14vw] sm:text-[10vw] lg:text-[7rem] leading-[0.88] text-white tracking-tight select-none will-change-transform"
+        {/* studiors.be Contact Section Prompt */}
+        <div ref={contactHeadRef} className="mb-20 pb-16 border-b border-white/10">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="nav__cta-dot" />
+            <span className="font-mono text-xs uppercase tracking-wider text-emerald-400">
+              Un créneau disponible ce trimestre · Available for new projects
+            </span>
+          </div>
+
+          <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-[#F4F3EF] tracking-tight mb-6">
+            Un projet en tête ?{' '}
+            <span className="font-editorial italic font-normal text-gray-400 block sm:inline">
+              Let's build together.
+            </span>
+          </h2>
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-2">
+            <a
+              href="mailto:akankshyam4@gmail.com"
+              className="font-serif text-2xl sm:text-4xl text-[#F4F3EF] hover:text-white underline decoration-white/30 underline-offset-8 transition-colors"
+            >
+              akankshyam4@gmail.com
+            </a>
+
+            <Magnetic strength={0.3}>
+              <button
+                onClick={onOpenContact}
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#F4F3EF] text-black font-semibold text-sm sm:text-base hover:bg-white transition-all shadow-2xl cursor-pointer hover:shadow-white/20"
               >
-                {profile.firstName}
-              </h2>
-              <h2
-                ref={lastNameRef}
-                className="font-serif font-bold text-[14vw] sm:text-[10vw] lg:text-[7rem] leading-[0.88] text-white tracking-tight select-none mt-2 will-change-transform"
+                <span className="nav__cta-dot" />
+                <span>Démarrer un projet →</span>
+              </button>
+            </Magnetic>
+          </div>
+        </div>
+
+        {/* studiors.be Footer Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-20 text-xs sm:text-sm font-sans">
+          {/* Brand Info */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
+            <div className="flex items-center gap-3">
+              <svg
+                className="w-6 h-6 text-white fill-white"
+                viewBox="0 0 332 303"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                {profile.lastName}
-              </h2>
+                <path d="M0 0V271.015L75.5081 190.67V71.9509H159.406C200.316 71.3114 186.839 98.0665 174.987 111.524L117.058 171.483C28.765 253.827 67.5178 299.796 133.837 302.194H331.996L252.093 227.045H181.379C170.992 227.045 162.602 225.446 208.946 183.875L242.505 151.097C320.81 58.7603 251.294 0.000390359 185.774 0H0Z"></path>
+              </svg>
+              <span className="font-bold text-base text-white tracking-tight">
+                {profile.firstName.toLowerCase()}
+                <span className="font-serif italic font-normal text-gray-400">
+                  .{profile.lastName.toLowerCase()}
+                </span>
+              </span>
             </div>
-            <div className="mt-6 text-gray-400 font-sans text-xs sm:text-sm tracking-wide">
-              <p>Full-stack</p>
-              <p>developer</p>
+            <p className="text-[#8A8985] max-w-sm leading-relaxed">
+              Full-stack engineer & creative developer.<br />
+              Tailored UI design, GSAP motion & scalable architectures.
+            </p>
+          </div>
+
+          {/* Nav Column */}
+          <div className="lg:col-span-2 space-y-3">
+            <p className="font-mono text-xs uppercase tracking-wider text-[#5C5B57] mb-4">
+              Menu
+            </p>
+            <div className="flex flex-col space-y-2 text-[#8A8985]">
+              <button
+                onClick={() => scrollToSection('projects')}
+                className="text-left hover:text-white transition-colors cursor-pointer"
+              >
+                Projets
+              </button>
+              <button
+                onClick={() => scrollToSection('about')}
+                className="text-left hover:text-white transition-colors cursor-pointer"
+              >
+                Studio
+              </button>
+              <button
+                onClick={() => scrollToSection('methode')}
+                className="text-left hover:text-white transition-colors cursor-pointer"
+              >
+                Méthode
+              </button>
+              <button
+                onClick={() => scrollToSection('feed')}
+                className="text-left hover:text-white transition-colors cursor-pointer"
+              >
+                Feed
+              </button>
             </div>
           </div>
 
-          {/* Right Column: Monospace Tag, Nav Links, and Info Card */}
-          <div className="lg:col-span-6 flex flex-col items-start lg:items-end justify-between h-full space-y-8">
-            {/* Monospace Header Tag */}
-            <div className="font-mono text-sm sm:text-base font-bold text-white tracking-wider">
-              ... /Contacts ...
-            </div>
-
-            {/* Clean Navigation Links with Magnetic Attraction */}
-            <nav className="flex items-center flex-wrap gap-5 sm:gap-7 font-sans text-xs sm:text-sm text-gray-400">
-              <Magnetic strength={0.3}>
-                <button
-                  onClick={() => scrollToSection('contacts')}
-                  className="hover:text-white transition-colors cursor-pointer"
-                >
-                  Connect
-                </button>
-              </Magnetic>
-              <Magnetic strength={0.3}>
-                <button
-                  onClick={() => scrollToSection('about')}
-                  className="hover:text-white transition-colors cursor-pointer"
-                >
-                  About
-                </button>
-              </Magnetic>
-              <Magnetic strength={0.3}>
-                <button
-                  onClick={() => scrollToSection('projects')}
-                  className="hover:text-white transition-colors cursor-pointer"
-                >
-                  Projects
-                </button>
-              </Magnetic>
-              <Magnetic strength={0.3}>
+          {/* Socials Column */}
+          <div className="lg:col-span-2 space-y-3">
+            <p className="font-mono text-xs uppercase tracking-wider text-[#5C5B57] mb-4">
+              Réseaux
+            </p>
+            <div className="flex flex-col space-y-2 text-[#8A8985]">
+              {socials.map((s, idx) => (
                 <a
-                  href={portfolioData.socials.find(s => s.name.toLowerCase() === 'github')?.url || 'https://github.com'}
+                  key={idx}
+                  href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
                 >
-                  Source
+                  {s.name}
                 </a>
-              </Magnetic>
-              <Magnetic strength={0.4}>
-                <button
-                  onClick={scrollToTop}
-                  className="circle-btn hover:bg-white hover:text-black transition-all"
-                  aria-label="Back to Top"
-                  title="Scroll to top"
-                >
-                  <FaArrowUp className="w-3 h-3" />
-                </button>
-              </Magnetic>
-            </nav>
+              ))}
+            </div>
+          </div>
 
-            {/* Info Box matching Reference Layout */}
-            <div
-              ref={infoBoxRef}
-              className="border border-white/20 rounded-3xl p-6 bg-[#121316]/70 backdrop-blur-md w-full max-w-sm shadow-2xl hover:border-white/40 transition-colors"
-            >
-              <p className="font-mono text-sm text-white font-bold mb-3">
-                {footer.years}
+          {/* Contact Column */}
+          <div className="lg:col-span-3 space-y-3">
+            <p className="font-mono text-xs uppercase tracking-wider text-[#5C5B57] mb-4">
+              Contact
+            </p>
+            <div className="space-y-1 text-[#8A8985]">
+              <a href="mailto:akankshyam4@gmail.com" className="text-white hover:underline block">
+                akankshyam4@gmail.com
+              </a>
+              <p>Odisha, India</p>
+              <p className="text-emerald-400 font-mono text-xs pt-1">
+                UTC+05:30 · Open to remote worldwide
               </p>
-              <div className="font-mono text-xs text-gray-400 space-y-1.5 leading-relaxed">
-                <p>{footer.handcrafted}</p>
-                <p>{footer.designedBy}</p>
-                <p className="text-emerald-400">{footer.poweredBy}</p>
-              </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Social / Contact Pills Bar with Magnetic Physics */}
+        {/* studiors.be Giant Wordmark at Bottom */}
         <div
-          ref={pillsRef}
-          className="pt-10 border-t border-white/10 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+          ref={wordmarkRef}
+          className="pt-10 border-t border-white/10 flex flex-col items-center justify-center text-center will-change-transform"
         >
-          {contactPills.map((pill, index) => (
-            <Magnetic key={index} strength={0.25}>
-              <a
-                href={pill.url}
-                onClick={(e) => {
-                  if (pill.isMail && onOpenContact) {
-                    e.preventDefault();
-                    onOpenContact();
-                  }
-                }}
-                target={pill.isMail ? undefined : "_blank"}
-                rel="noopener noreferrer"
-                className="pill-btn hover:border-white/80 hover:bg-white/15"
-                aria-label={`Contact via ${pill.name}`}
-              >
-                {renderContactIcon(pill.name)}
-                <span className="font-medium text-xs sm:text-sm">{pill.name}</span>
-              </a>
-            </Magnetic>
-          ))}
+          <div className="w-full flex items-center justify-between text-xs font-mono text-[#5C5B57] mb-6">
+            <span>©2026 Akankshya Mishra</span>
+            <span>Tous droits réservés</span>
+            <button
+              onClick={scrollToTop}
+              className="hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <span>Retour en haut</span>
+              <FaArrowUp className="w-3 h-3" />
+            </button>
+          </div>
+
+          <div className="select-none tracking-tighter leading-none text-[#F4F3EF] opacity-90 py-2">
+            <span className="font-sans font-black text-[13vw] sm:text-[11vw] lg:text-[8.5rem] uppercase">
+              {profile.firstName}
+            </span>
+            <span className="font-serif italic font-normal text-[13vw] sm:text-[11vw] lg:text-[8.5rem] text-gray-400 ml-3 sm:ml-6">
+              .{profile.lastName.toLowerCase()}
+            </span>
+          </div>
         </div>
       </div>
     </footer>
