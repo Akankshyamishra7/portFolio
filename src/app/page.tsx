@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import Manifesto from '@/components/Manifesto';
 import AboutSkills from '@/components/AboutSkills';
 import Projects from '@/components/Projects';
 import Feed from '@/components/Feed';
@@ -33,11 +34,12 @@ export default function Home() {
   return (
     <SmoothScrollProvider>
       <CustomCursor />
-      <div className="min-h-screen bg-[#0a0a0c] text-white selection:bg-white selection:text-black">
+      <div className="min-h-screen bg-[#0E0E0D] text-[#F4F3EF] selection:bg-[#F4F3EF] selection:text-black">
       {/* Top Navigation */}
       <Header
         onOpenArticles={() => setIsArticlesOpen(true)}
         onOpenResume={() => setIsResumeOpen(true)}
+        onOpenContact={() => setIsContactOpen(true)}
       />
 
       {/* Main Sections */}
@@ -45,7 +47,10 @@ export default function Home() {
         {/* Section 1: Hero */}
         <Hero onOpenResume={() => setIsResumeOpen(true)} />
 
-        {/* Section 2: About & Skills */}
+        {/* Section 2: studiors.be Manifesto */}
+        <Manifesto />
+
+        {/* Section 3: About & Capabilities */}
         <AboutSkills />
 
         {/* Section 3: Projects */}

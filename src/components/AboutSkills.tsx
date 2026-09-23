@@ -157,25 +157,27 @@ const AboutSkills: React.FC = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="py-20 sm:py-28 bg-[#090a0c] relative">
+    <section ref={sectionRef} id="about" className="py-20 sm:py-28 bg-[#0E0E0D] border-t border-white/10 relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        {/* Section Header */}
-        <div ref={headerRef} className="mb-12">
-          <h2 className="font-mono text-2xl sm:text-4xl text-white font-bold mb-4 tracking-tight">
-            ./About me
+        {/* Section Header matching studiors.be */}
+        <div ref={headerRef} className="mb-14">
+          <p className="font-mono text-xs uppercase tracking-widest text-[#8A8985] mb-3">
+            (Expertise & Architecture)
+          </p>
+          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-[#F4F3EF] font-bold mb-4 tracking-tight">
+            Ce que je fais <span className="font-editorial italic font-normal text-gray-400">· Capabilities</span>
           </h2>
-          <p className="text-gray-300 text-base sm:text-xl font-sans leading-relaxed max-w-3xl">
-            I'm <strong className="text-white font-semibold">{profile.firstName}</strong>, a full-stack developer with{' '}
-            <strong className="text-white font-semibold">over {profile.yearsExperience} years of experience.</strong>
+          <p className="text-[#8A8985] text-base sm:text-lg font-sans leading-relaxed max-w-3xl">
+            Modern stack mastery. Scalable architecture, performant front-end engineering, and precision micro-interactions.
           </p>
         </div>
 
         {/* 4 Cards Grid matching Bento Layout with 3D Tilt */}
         <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch mb-14">
-          {/* Card 1: Front-end (White Highlight Card) */}
+          {/* Card 1: Front-end (Cream Highlight Card) */}
           <TiltCard
             isLight={true}
-            className="bg-white text-gray-950 rounded-3xl p-6 sm:p-8 shadow-2xl border border-white"
+            className="bg-[#F4F3EF] text-gray-950 rounded-3xl p-6 sm:p-8 shadow-2xl border border-white"
           >
             <div>
               <h3 className="text-xl sm:text-2xl font-serif font-bold mb-4 text-black">
@@ -191,49 +193,49 @@ const AboutSkills: React.FC = () => {
           </TiltCard>
 
           {/* Card 2: Back-end (Dark Card) */}
-          <TiltCard className="bg-[#111215] text-white border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl hover:border-white/40 transition-colors">
+          <TiltCard className="bg-[#141413] text-white border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl hover:border-white/30 transition-colors">
             <div>
-              <h3 className="text-xl sm:text-2xl font-serif font-bold mb-4 text-white">
+              <h3 className="text-xl sm:text-2xl font-serif font-bold mb-4 text-[#F4F3EF]">
                 Back-end
               </h3>
-              <p className="text-xs sm:text-sm font-mono leading-loose text-gray-300">
+              <p className="text-xs sm:text-sm font-mono leading-loose text-[#8A8985]">
                 {skills.backend}
               </p>
             </div>
-            <div className="mt-8 pt-4 border-t border-white/10 text-xs font-mono text-gray-400 uppercase tracking-wider">
+            <div className="mt-8 pt-4 border-t border-white/10 text-xs font-mono text-[#5C5B57] uppercase tracking-wider">
               Scalable APIs & Microservices
             </div>
           </TiltCard>
 
           {/* Card 3: Styles (Dark Card) */}
-          <TiltCard className="bg-[#111215] text-white border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl hover:border-white/40 transition-colors">
+          <TiltCard className="bg-[#141413] text-white border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl hover:border-white/30 transition-colors">
             <div>
-              <h3 className="text-xl sm:text-2xl font-serif font-bold mb-4 text-white">
+              <h3 className="text-xl sm:text-2xl font-serif font-bold mb-4 text-[#F4F3EF]">
                 Styles
               </h3>
-              <p className="text-xs sm:text-sm font-mono leading-loose text-gray-300">
+              <p className="text-xs sm:text-sm font-mono leading-loose text-[#8A8985]">
                 {skills.styles}
               </p>
             </div>
-            <div className="mt-8 pt-4 border-t border-white/10 text-xs font-mono text-gray-400 uppercase tracking-wider">
+            <div className="mt-8 pt-4 border-t border-white/10 text-xs font-mono text-[#5C5B57] uppercase tracking-wider">
               Modern Responsive Systems
             </div>
           </TiltCard>
 
           {/* Card 4: Also (Dark Card) */}
-          <TiltCard className="bg-[#111215] text-white border border-white/20 rounded-3xl p-6 sm:p-8 shadow-2xl hover:border-white/40 transition-colors">
+          <TiltCard className="bg-[#141413] text-white border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl hover:border-white/30 transition-colors">
             <div>
-              <h3 className="text-xl sm:text-2xl font-serif font-bold mb-4 text-white">
+              <h3 className="text-xl sm:text-2xl font-serif font-bold mb-4 text-[#F4F3EF]">
                 Also
               </h3>
-              <p className="text-xs text-white/70 italic mb-3 font-sans">
+              <p className="text-xs text-[#8A8985] italic mb-3 font-sans">
                 Some of my favorite technologies, topics or tools that I worked with
               </p>
-              <p className="text-xs sm:text-sm font-mono leading-loose text-gray-300">
+              <p className="text-xs sm:text-sm font-mono leading-loose text-[#8A8985]">
                 {skills.also}
               </p>
             </div>
-            <div className="mt-8 pt-4 border-t border-white/10 text-xs font-mono text-gray-400 uppercase tracking-wider">
+            <div className="mt-8 pt-4 border-t border-white/10 text-xs font-mono text-[#5C5B57] uppercase tracking-wider">
               Craftsmanship & Integrity
             </div>
           </TiltCard>
