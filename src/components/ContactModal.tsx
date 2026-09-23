@@ -31,8 +31,6 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
-      setStep(1);
-      setFormSubmitted(false);
       if (backdropRef.current && boxRef.current) {
         gsap.fromTo(
           backdropRef.current,
@@ -61,9 +59,15 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
         opacity: 0,
         duration: 0.25,
         ease: 'power2.in',
-        onComplete: onClose,
+        onComplete: () => {
+          setStep(1);
+          setFormSubmitted(false);
+          onClose();
+        },
       });
     } else {
+      setStep(1);
+      setFormSubmitted(false);
       onClose();
     }
   };

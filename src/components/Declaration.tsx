@@ -18,7 +18,7 @@ const Declaration: React.FC = () => {
                 Professional Declaration
               </h3>
               <p className="text-gray-400 leading-relaxed italic max-w-2xl mx-auto">
-                "I hereby declare that the above information is true and correct to the best of my knowledge."
+                &quot;I hereby declare that the above information is true and correct to the best of my knowledge.&quot;
               </p>
               <div className="mt-6 pt-6 border-t border-gray-800">
                 <p className="text-gray-300 font-medium">
@@ -86,9 +86,9 @@ const Declaration: React.FC = () => {
           
           <div className="text-center">
             <div className="card bg-gradient-to-r from-green-600 to-emerald-600 text-white border-none shadow-lg shadow-green-500/30">
-              <h3 className="text-2xl font-bold mb-4">Let's Build Something Amazing Together!</h3>
+              <h3 className="text-2xl font-bold mb-4">Let&apos;s Build Something Amazing Together!</h3>
               <p className="mb-8 opacity-90 text-lg">
-                I'm always excited to discuss new opportunities, collaborate on projects, 
+                I&apos;m always excited to discuss new opportunities, collaborate on projects, 
                 or simply connect with fellow developers and tech enthusiasts.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

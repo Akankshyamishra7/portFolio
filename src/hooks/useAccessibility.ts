@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useSyncExternalStore } from 'react';
 
 // Hook for managing focus and keyboard navigation
 export const useFocusManagement = () => {
@@ -93,36 +93,34 @@ export const useKeyboardNavigation = (
   }, [onEnter, onEscape, onArrowKeys]);
 };
 
+const getServerSnapshot = () => false;
+
 // Hook for reduced motion preferences
+function subscribeReducedMotion(callback: () => void) {
+  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  mediaQuery.addEventListener('change', callback);
+  return () => mediaQuery.removeEventListener('change', callback);
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 export const useReducedMotion = () => {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handleChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
-    mediaQuery.addEventListener('change', handleChange);
-
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
-
-  return prefersReducedMotion;
+  return useSyncExternalStore(subscribeReducedMotion, getReducedMotionSnapshot, getServerSnapshot);
 };
 
 // Hook for high contrast mode
+function subscribeHighContrast(callback: () => void) {
+  const mediaQuery = window.matchMedia('(prefers-contrast: high)');
+  mediaQuery.addEventListener('change', callback);
+  return () => mediaQuery.removeEventListener('change', callback);
+}
+
+function getHighContrastSnapshot() {
+  return window.matchMedia('(prefers-contrast: high)').matches;
+}
+
 export const useHighContrast = () => {
-  const [prefersHighContrast, setPrefersHighContrast] = useState<boolean>(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-contrast: high)');
-    setPrefersHighContrast(mediaQuery.matches);
-
-    const handleChange = (e: MediaQueryListEvent) => setPrefersHighContrast(e.matches);
-    mediaQuery.addEventListener('change', handleChange);
-
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
-
-  return prefersHighContrast;
+  return useSyncExternalStore(subscribeHighContrast, getHighContrastSnapshot, getServerSnapshot);
 };

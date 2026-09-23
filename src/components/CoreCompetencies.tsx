@@ -136,7 +136,7 @@ const CoreCompetencies: React.FC = () => {
                 to any development team or project.
               </p>
               <button className="bg-black text-green-400 px-8 py-3 rounded-lg font-semibold hover:bg-gray-900 transition-colors duration-300 shadow-lg border border-green-500">
-                Let's Connect
+                Let&apos;s Connect
               </button>
             </div>
           </div>

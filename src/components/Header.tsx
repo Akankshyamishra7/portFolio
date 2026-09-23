@@ -107,7 +107,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenArticles, onOpenResume, onOpenCon
                 className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/15 bg-[#141413] hover:border-white/40 text-xs font-sans font-medium text-[#F4F3EF] transition-all cursor-pointer shadow-lg hover:shadow-emerald-500/5"
               >
                 <span className="nav__cta-dot" />
-                <span>Let's talk</span>
+                <span>Let&apos;s talk</span>
               </button>
             </Magnetic>
 
