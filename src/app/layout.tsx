@@ -65,6 +65,8 @@ export const metadata: Metadata = {
   },
 };
 
+import AwwwardsBadge from '@/components/AwwwardsBadge';
+
 export default function RootLayout({
   children,
 }: {
@@ -72,7 +74,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${spaceMono.variable} ${playfair.variable}`}>
-      <body className="bg-[#0a0a0c] text-white selection:bg-white selection:text-black antialiased overflow-x-hidden">
+      <body className="bg-[#0E0E0D] text-[#F4F3EF] selection:bg-[#F4F3EF] selection:text-black antialiased overflow-x-hidden">
+        {/* studiors.be film grain noise overlay */}
+        <div className="grain" aria-hidden="true" />
+        <AwwwardsBadge />
         {children}
       </body>
     </html>
