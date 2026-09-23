@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { HiX, HiCheck } from 'react-icons/hi';
 import { FaEnvelope, FaPaperPlane } from 'react-icons/fa6';

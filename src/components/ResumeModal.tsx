@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { HiX, HiDownload, HiPrinter } from 'react-icons/hi';
 import { FaLinkedin, FaGithub } from 'react-icons/fa6';

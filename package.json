@@ -1,6 +1,7 @@
 {
   "name": "akankshya-portfolio",
   "private": true,
+  "type": "module",
   "version": "1.0.0",
   "scripts": {
     "dev": "next dev",

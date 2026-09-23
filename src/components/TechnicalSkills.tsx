@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { IconType } from 'react-icons';
 import { 
@@ -6,7 +8,7 @@ import {
 } from 'react-icons/fi';
 import { 
   SiReact, SiTailwindcss, SiBootstrap, SiMui,
-  SiJavascript, SiPython, SiHtml5, SiCss3
+  SiJavascript, SiPython, SiHtml5, SiCss
 } from 'react-icons/si';
 import { HiGlobeAlt, HiLightningBolt } from 'react-icons/hi';
 import { BiTargetLock } from 'react-icons/bi';
@@ -37,7 +39,7 @@ const TechnicalSkills: React.FC = () => {
       { name: 'JavaScript', level: 85, icon: SiJavascript, color: 'from-yellow-400 to-yellow-600', description: 'Modern ES6+, DOM manipulation, Async/Await' },
       { name: 'Python', level: 80, icon: SiPython, color: 'from-green-400 to-emerald-500', description: 'Object-oriented programming, Data structures' },
       { name: 'HTML5', level: 90, icon: SiHtml5, color: 'from-green-500 to-teal-500', description: 'Semantic markup, Accessibility, SEO' },
-      { name: 'CSS3', level: 85, icon: SiCss3, color: 'from-emerald-400 to-green-500', description: 'Flexbox, Grid, Animations, Responsive design' }
+      { name: 'CSS3', level: 85, icon: SiCss, color: 'from-emerald-400 to-green-500', description: 'Flexbox, Grid, Animations, Responsive design' }
     ],
     frameworks: [
       { name: 'React', level: 82, icon: SiReact, color: 'from-teal-400 to-green-500', description: 'Hooks, Context API, Component lifecycle' },

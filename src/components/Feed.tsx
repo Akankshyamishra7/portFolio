@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { FaRss, FaLinkedin, FaThumbsUp, FaComment } from 'react-icons/fa6';
 import { HiExternalLink, HiX } from 'react-icons/hi';

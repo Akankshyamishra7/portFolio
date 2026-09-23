@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { HiX, HiExternalLink } from 'react-icons/hi';
 import { FaBookOpen } from 'react-icons/fa6';

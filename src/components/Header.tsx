@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { FaGithub } from 'react-icons/fa6';
 import { portfolioData } from '../data/portfolioData';
