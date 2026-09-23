@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { HiX, HiCheck } from 'react-icons/hi';
 import { FaEnvelope, FaPaperPlane } from 'react-icons/fa6';
+import gsap from 'gsap';
+import confetti from 'canvas-confetti';
 import { portfolioData } from '../data/portfolioData';
 
 interface ContactModalProps {
@@ -11,44 +13,98 @@ interface ContactModalProps {
 }
 
 const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
   const { profile } = portfolioData;
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && backdropRef.current && boxRef.current) {
+      gsap.fromTo(
+        backdropRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: 'power2.out' }
+      );
+      gsap.fromTo(
+        boxRef.current,
+        { scale: 0.85, opacity: 0, y: 30 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.5)' }
+      );
+    }
+  }, [isOpen]);
+
+  const handleClose = () => {
+    if (backdropRef.current && boxRef.current) {
+      gsap.to(boxRef.current, {
+        scale: 0.9,
+        opacity: 0,
+        y: 20,
+        duration: 0.25,
+        ease: 'power2.in',
+      });
+      gsap.to(backdropRef.current, {
+        opacity: 0,
+        duration: 0.25,
+        ease: 'power2.in',
+        onComplete: onClose,
+      });
+    } else {
+      onClose();
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitted(true);
+
+    // Confetti celebration
+    try {
+      confetti({
+        particleCount: 90,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ['#ffffff', '#10b981', '#3b82f6', '#ec4899'],
+      });
+    } catch {
+      // safe fallback
+    }
+
     setTimeout(() => {
       setFormSubmitted(false);
-      onClose();
-    }, 2000);
+      handleClose();
+    }, 2200);
   };
+
+  if (!isOpen) return null;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in-up"
-      onClick={onClose}
+      ref={backdropRef}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+      onClick={handleClose}
     >
       <div
-        className="bg-[#121316] text-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-white/20 shadow-2xl relative"
+        ref={boxRef}
+        className="bg-[#121316] text-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-white/20 shadow-2xl relative will-change-transform"
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          onClick={onClose}
-          className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+          onClick={handleClose}
+          className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
           aria-label="Close modal"
         >
           <HiX className="w-5 h-5" />
         </button>
 
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center text-white shadow-inner">
             <FaEnvelope className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="font-serif font-bold text-xl text-white">
+            <h3 className="font-serif font-bold text-xl sm:text-2xl text-white">
               Get in touch
             </h3>
             <p className="text-xs text-gray-400 font-sans">
@@ -59,11 +115,11 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
 
         {formSubmitted ? (
           <div className="py-12 text-center space-y-3">
-            <div className="w-12 h-12 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto">
-              <HiCheck className="w-6 h-6" />
+            <div className="w-14 h-14 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(16,185,129,0.4)] animate-bounce">
+              <HiCheck className="w-8 h-8" />
             </div>
-            <h4 className="font-bold text-lg text-white">Message Sent!</h4>
-            <p className="text-xs text-gray-400">
+            <h4 className="font-bold text-xl text-white">Message Sent!</h4>
+            <p className="text-xs sm:text-sm text-gray-300">
               Thank you! I will get back to you as soon as possible.
             </p>
           </div>
@@ -79,7 +135,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Jane Doe"
-                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/15 focus:border-white/50 text-white text-xs sm:text-sm focus:outline-none transition-colors"
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 focus:border-white/60 text-white text-xs sm:text-sm focus:outline-none transition-colors"
               />
             </div>
 
@@ -93,7 +149,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="jane@example.com"
-                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/15 focus:border-white/50 text-white text-xs sm:text-sm focus:outline-none transition-colors"
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 focus:border-white/60 text-white text-xs sm:text-sm focus:outline-none transition-colors"
               />
             </div>
 
@@ -106,8 +162,8 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                 rows={4}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="Hi Akankshya, I'd like to talk about..."
-                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/15 focus:border-white/50 text-white text-xs sm:text-sm focus:outline-none transition-colors resize-none"
+                placeholder="Hi Akankshya, let's discuss..."
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 focus:border-white/60 text-white text-xs sm:text-sm focus:outline-none transition-colors resize-none"
               />
             </div>
 
@@ -120,7 +176,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
               </a>
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-gray-200 transition-all cursor-pointer shadow-lg"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-gray-200 transition-all cursor-pointer shadow-xl hover:shadow-white/20 hover:scale-105"
               >
                 <span>Send</span>
                 <FaPaperPlane className="w-3.5 h-3.5" />

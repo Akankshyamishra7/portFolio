@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { HiX, HiExternalLink } from 'react-icons/hi';
 import { FaBookOpen } from 'react-icons/fa6';
+import gsap from 'gsap';
 
 interface ArticlesModalProps {
   isOpen: boolean;
@@ -11,6 +12,44 @@ interface ArticlesModalProps {
 }
 
 const ArticlesModal: React.FC<ArticlesModalProps> = ({ isOpen, onClose, onScrollToFeed }) => {
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && backdropRef.current && boxRef.current) {
+      gsap.fromTo(
+        backdropRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: 'power2.out' }
+      );
+      gsap.fromTo(
+        boxRef.current,
+        { scale: 0.85, opacity: 0, y: 30 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.5)' }
+      );
+    }
+  }, [isOpen]);
+
+  const handleClose = () => {
+    if (backdropRef.current && boxRef.current) {
+      gsap.to(boxRef.current, {
+        scale: 0.9,
+        opacity: 0,
+        y: 20,
+        duration: 0.25,
+        ease: 'power2.in',
+      });
+      gsap.to(backdropRef.current, {
+        opacity: 0,
+        duration: 0.25,
+        ease: 'power2.in',
+        onComplete: onClose,
+      });
+    } else {
+      onClose();
+    }
+  };
+
   if (!isOpen) return null;
 
   const articles = [
@@ -39,16 +78,18 @@ const ArticlesModal: React.FC<ArticlesModalProps> = ({ isOpen, onClose, onScroll
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in-up"
-      onClick={onClose}
+      ref={backdropRef}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+      onClick={handleClose}
     >
       <div
-        className="bg-[#121316] text-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-white/20 shadow-2xl relative max-h-[90vh] overflow-y-auto"
+        ref={boxRef}
+        className="bg-[#121316] text-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-white/20 shadow-2xl relative max-h-[90vh] overflow-y-auto will-change-transform"
         onClick={(e) => e.stopPropagation()}
       >
         <button
-          onClick={onClose}
-          className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+          onClick={handleClose}
+          className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
           aria-label="Close modal"
         >
           <HiX className="w-5 h-5" />
@@ -97,7 +138,7 @@ const ArticlesModal: React.FC<ArticlesModalProps> = ({ isOpen, onClose, onScroll
                 </div>
                 <button
                   onClick={() => {
-                    onClose();
+                    handleClose();
                     onScrollToFeed();
                   }}
                   className="text-xs font-sans text-white hover:underline flex items-center gap-1 cursor-pointer"

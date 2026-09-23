@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { HiX, HiDownload, HiPrinter } from 'react-icons/hi';
 import { FaLinkedin, FaGithub } from 'react-icons/fa6';
+import gsap from 'gsap';
 import { portfolioData } from '../data/portfolioData';
 
 interface ResumeModalProps {
@@ -11,26 +12,67 @@ interface ResumeModalProps {
 }
 
 const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
   const { profile, skills, experience, education } = portfolioData;
+
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen && backdropRef.current && boxRef.current) {
+      gsap.fromTo(
+        backdropRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: 'power2.out' }
+      );
+      gsap.fromTo(
+        boxRef.current,
+        { scale: 0.85, opacity: 0, y: 30 },
+        { scale: 1, opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.5)' }
+      );
+    }
+  }, [isOpen]);
+
+  const handleClose = () => {
+    if (backdropRef.current && boxRef.current) {
+      gsap.to(boxRef.current, {
+        scale: 0.9,
+        opacity: 0,
+        y: 20,
+        duration: 0.25,
+        ease: 'power2.in',
+      });
+      gsap.to(backdropRef.current, {
+        opacity: 0,
+        duration: 0.25,
+        ease: 'power2.in',
+        onComplete: onClose,
+      });
+    } else {
+      onClose();
+    }
+  };
 
   const handlePrint = () => {
     window.print();
   };
 
+  if (!isOpen) return null;
+
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in-up"
-      onClick={onClose}
+      ref={backdropRef}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+      onClick={handleClose}
     >
       <div
-        className="bg-white text-gray-900 rounded-3xl max-w-3xl w-full p-6 sm:p-10 max-h-[92vh] overflow-y-auto shadow-2xl relative"
+        ref={boxRef}
+        className="bg-white text-gray-900 rounded-3xl max-w-3xl w-full p-6 sm:p-10 max-h-[92vh] overflow-y-auto shadow-2xl relative will-change-transform"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Actions */}
         <div className="flex items-center justify-between border-b border-gray-200 pb-4 mb-6">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-xs uppercase tracking-wider bg-gray-900 text-white px-3 py-1 rounded-full">
+            <span className="font-mono text-xs uppercase tracking-wider bg-gray-900 text-white px-3 py-1 rounded-full font-bold">
               Curriculum Vitae
             </span>
             <span className="text-xs text-gray-500 font-mono">
@@ -41,15 +83,15 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrint}
-              className="p-2 rounded-full hover:bg-gray-100 text-gray-700 transition-colors"
+              className="p-2 rounded-full hover:bg-gray-100 text-gray-700 transition-colors cursor-pointer"
               title="Print Resume"
               aria-label="Print Resume"
             >
               <HiPrinter className="w-5 h-5" />
             </button>
             <button
-              onClick={onClose}
-              className="p-2 rounded-full hover:bg-gray-100 text-gray-700 transition-colors"
+              onClick={handleClose}
+              className="p-2 rounded-full hover:bg-gray-100 text-gray-700 transition-colors cursor-pointer"
               aria-label="Close"
             >
               <HiX className="w-5 h-5" />
@@ -159,8 +201,8 @@ const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
         {/* Footer Actions */}
         <div className="mt-8 pt-4 border-t border-gray-200 flex justify-end gap-3">
           <button
-            onClick={onClose}
-            className="px-5 py-2 rounded-full border border-gray-300 hover:bg-gray-100 text-xs sm:text-sm font-medium font-sans"
+            onClick={handleClose}
+            className="px-5 py-2 rounded-full border border-gray-300 hover:bg-gray-100 text-xs sm:text-sm font-medium font-sans cursor-pointer"
           >
             Close
           </button>
