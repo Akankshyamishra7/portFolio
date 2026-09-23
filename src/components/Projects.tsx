@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { FaGithub, FaArrowRight } from 'react-icons/fa6';
+import { FaGithub } from 'react-icons/fa6';
 import { HiExternalLink, HiX } from 'react-icons/hi';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -14,8 +14,9 @@ if (typeof window !== 'undefined') {
 
 const ProjectSpotlightCard: React.FC<{
   project: ProjectItem;
+  index: number;
   onOpenDetails: () => void;
-}> = ({ project, onOpenDetails }) => {
+}> = ({ project, index, onOpenDetails }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -31,51 +32,51 @@ const ProjectSpotlightCard: React.FC<{
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className="spotlight-card group bg-[#111216] border border-white/15 rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:border-white/40 hover:shadow-2xl hover:shadow-white/5 transition-all duration-300 will-change-transform"
+      className="spotlight-card group bg-[#141413] border border-white/10 rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:border-white/30 hover:shadow-2xl transition-all duration-300 will-change-transform"
     >
       <div className="relative z-10">
-        {/* Tech Pills */}
-        <div className="flex flex-wrap gap-2 mb-5">
-          {project.technologies.slice(0, 4).map((tech, idx) => (
-            <span
-              key={idx}
-              className="text-[11px] font-mono px-3 py-1 rounded-full bg-white/10 text-gray-300 border border-white/10 group-hover:border-white/30 transition-colors"
-            >
-              {tech}
-            </span>
-          ))}
-          {project.technologies.length > 4 && (
-            <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-white/5 text-gray-400">
-              +{project.technologies.length - 4}
-            </span>
-          )}
+        {/* Top bar with index and tags */}
+        <div className="flex items-center justify-between gap-2 mb-6 pb-4 border-b border-white/10">
+          <span className="font-mono text-xs text-emerald-400 font-bold">
+            0{index + 1}
+          </span>
+          <div className="flex flex-wrap gap-1.5 justify-end">
+            {project.technologies.slice(0, 3).map((tech, idx) => (
+              <span
+                key={idx}
+                className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/5 text-[#8A8985] border border-white/10"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
 
-        {/* Title & Subtitle */}
-        <h3 className="font-mono text-xl sm:text-2xl font-bold text-white mb-1.5 group-hover:text-gray-100 transition-colors">
+        {/* Title & Subtitle matching studiors.be */}
+        <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#F4F3EF] mb-2 group-hover:text-white transition-colors">
           {project.title}
         </h3>
         {project.subtitle && (
-          <p className="text-xs text-gray-400 font-mono mb-4">
+          <p className="text-xs text-[#8A8985] font-mono mb-4">
             {project.subtitle}
           </p>
         )}
 
         {/* Description */}
-        <p className="text-xs sm:text-sm text-gray-300 font-sans leading-relaxed mb-6 line-clamp-3">
+        <p className="text-xs sm:text-sm text-gray-400 font-sans leading-relaxed mb-8 line-clamp-3">
           {project.description}
         </p>
       </div>
 
-      {/* Actions Footer */}
+      {/* Actions Footer matching studiors.be "Voir le projet ↗" */}
       <div className="relative z-10 pt-5 border-t border-white/10 flex items-center justify-between gap-3">
         <Magnetic strength={0.25}>
           <button
             onClick={onOpenDetails}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black hover:bg-gray-200 transition-all font-sans text-xs sm:text-sm font-semibold cursor-pointer shadow-lg hover:shadow-white/20"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#F4F3EF] text-black hover:bg-white transition-all font-sans text-xs sm:text-sm font-semibold cursor-pointer shadow-lg hover:shadow-white/20"
           >
-            <span>Project Details</span>
-            <FaArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1 duration-200" />
+            <span>Voir le projet</span>
+            <span className="font-mono text-xs">↗</span>
           </button>
         </Magnetic>
 
@@ -86,7 +87,7 @@ const ProjectSpotlightCard: React.FC<{
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="circle-btn hover:border-white/80"
+                className="circle-btn hover:border-white/60"
                 aria-label="View Source Code on GitHub"
               >
                 <FaGithub className="w-3.5 h-3.5" />
@@ -99,7 +100,7 @@ const ProjectSpotlightCard: React.FC<{
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="circle-btn hover:border-white/80"
+                className="circle-btn hover:border-white/60"
                 aria-label="Visit Live Project"
               >
                 <HiExternalLink className="w-3.5 h-3.5" />
@@ -124,7 +125,6 @@ const Projects: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Header reveal
       if (headerRef.current) {
         gsap.from(headerRef.current.children, {
           scrollTrigger: {
@@ -140,7 +140,6 @@ const Projects: React.FC = () => {
         });
       }
 
-      // 3D Card Cascade Reveal
       if (gridRef.current) {
         gsap.from(gridRef.current.children, {
           scrollTrigger: {
@@ -198,15 +197,32 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="py-20 sm:py-28 bg-[#0b0c0e] relative">
+    <section ref={sectionRef} id="projects" className="py-24 sm:py-36 bg-[#0E0E0D] border-t border-white/10 relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        <div ref={headerRef} className="mb-14">
-          <h2 className="font-mono text-2xl sm:text-4xl text-white font-bold mb-3 tracking-tight">
-            ./Projects
+        {/* studiors.be .strip Header */}
+        <div ref={headerRef} className="mb-16">
+          <div className="flex items-center justify-between mb-4">
+            <p className="font-mono text-xs uppercase tracking-widest text-[#8A8985]">
+              02 · Projets en image
+            </p>
+            <span className="font-mono text-xs text-[#8A8985]">
+              01 / 0{projects.length}
+            </span>
+          </div>
+
+          <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-[#F4F3EF] tracking-tight mb-4">
+            <span>Voir, </span>
+            <em className="font-editorial italic font-normal text-gray-400">avant de lire.</em>
           </h2>
-          <p className="text-gray-400 text-sm sm:text-base font-sans max-w-2xl">
-            A selection of production-grade web applications, developer tools, and scalable systems.
-          </p>
+
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-b border-white/10 pb-6">
+            <p className="text-[#8A8985] text-sm sm:text-base font-sans">
+              Trois projets majeurs, trois univers construits jusque dans leurs micro-interactions.
+            </p>
+            <span className="font-mono text-sm text-gray-400 hidden sm:inline" aria-hidden="true">
+              ↘
+            </span>
+          </div>
         </div>
 
         {/* Projects Grid with 3D Cascade & Spotlight Effect */}
@@ -214,17 +230,18 @@ const Projects: React.FC = () => {
           ref={gridRef}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
-          {projects.map((project) => (
+          {projects.map((project, idx) => (
             <ProjectSpotlightCard
               key={project.id}
               project={project}
+              index={idx}
               onOpenDetails={() => setActiveProject(project)}
             />
           ))}
         </div>
       </div>
 
-      {/* Project Details Modal with GSAP Elastic Animation */}
+      {/* Project Details Modal */}
       {activeProject && (
         <div
           ref={modalBackdropRef}
@@ -233,7 +250,7 @@ const Projects: React.FC = () => {
         >
           <div
             ref={modalBoxRef}
-            className="bg-[#121316] text-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto border border-white/20 shadow-2xl relative"
+            className="bg-[#141413] text-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto border border-white/20 shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -244,15 +261,15 @@ const Projects: React.FC = () => {
               <HiX className="w-5 h-5" />
             </button>
 
-            <h3 className="font-serif font-bold text-2xl sm:text-3xl mb-2 text-white">
+            <h3 className="font-serif font-bold text-2xl sm:text-3xl mb-2 text-[#F4F3EF]">
               {activeProject.title}
             </h3>
-            <p className="text-sm font-mono text-gray-400 mb-6">
+            <p className="text-sm font-mono text-[#8A8985] mb-6">
               {activeProject.subtitle}
             </p>
 
             <div className="mb-6">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-gray-400 mb-3">
+              <h4 className="text-xs font-mono uppercase tracking-wider text-[#8A8985] mb-3">
                 Technologies & Architecture
               </h4>
               <div className="flex flex-wrap gap-2">
@@ -268,7 +285,7 @@ const Projects: React.FC = () => {
             </div>
 
             <div className="mb-8">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-gray-400 mb-2">
+              <h4 className="text-xs font-mono uppercase tracking-wider text-[#8A8985] mb-2">
                 Overview
               </h4>
               <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-sans">
@@ -283,7 +300,7 @@ const Projects: React.FC = () => {
                     href={activeProject.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="pill-btn hover:border-white/80"
+                    className="pill-btn hover:border-white/60"
                   >
                     <FaGithub className="w-4 h-4" />
                     <span>View on GitHub</span>
@@ -296,7 +313,7 @@ const Projects: React.FC = () => {
                     href={activeProject.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-gray-200 transition-colors shadow-lg"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#F4F3EF] text-black font-semibold text-xs sm:text-sm hover:bg-white transition-colors shadow-lg"
                   >
                     <span>Visit Live App</span>
                     <HiExternalLink className="w-4 h-4" />

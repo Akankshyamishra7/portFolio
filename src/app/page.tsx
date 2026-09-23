@@ -6,6 +6,7 @@ import Hero from '@/components/Hero';
 import Manifesto from '@/components/Manifesto';
 import AboutSkills from '@/components/AboutSkills';
 import Projects from '@/components/Projects';
+import Method from '@/components/Method';
 import Feed from '@/components/Feed';
 import ExperienceEducation from '@/components/ExperienceEducation';
 import Footer from '@/components/Footer';
@@ -53,10 +54,13 @@ export default function Home() {
         {/* Section 3: About & Capabilities */}
         <AboutSkills />
 
-        {/* Section 3: Projects */}
+        {/* Section 4: Projects (studiors.be Strip Showcase) */}
         <Projects />
 
-        {/* Section 4: Feed */}
+        {/* Section 5: The 4-Step Engineering Method */}
+        <Method />
+
+        {/* Section 6: Feed */}
         <Feed />
 
         {/* Section 5: Experience & Education Timeline */}
