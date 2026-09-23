@@ -21,72 +21,84 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
   const { profile, socials } = portfolioData;
 
   const heroRef = useRef<HTMLElement>(null);
-  const fullstackTextRef = useRef<HTMLHeadingElement>(null);
-  const developerTextRef = useRef<HTMLHeadingElement>(null);
-  const missionTextRef = useRef<HTMLParagraphElement>(null);
-  const resumeContainerRef = useRef<HTMLDivElement>(null);
+  const line1Ref = useRef<HTMLSpanElement>(null);
+  const line2Ref = useRef<HTMLSpanElement>(null);
+  const line3Ref = useRef<HTMLSpanElement>(null);
+  const asideDescRef = useRef<HTMLParagraphElement>(null);
+  const asideIndexRef = useRef<HTMLUListElement>(null);
+  const actionPillRef = useRef<HTMLDivElement>(null);
   const socialsRef = useRef<HTMLDivElement>(null);
+  const marqueeRef = useRef<HTMLDivElement>(null);
   const floorRef = useRef<HTMLDivElement>(null);
-  const bottomBarRef = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
-      // 1. Initial State setup
-      gsap.set(fullstackTextRef.current, { yPercent: 110, rotateX: 45, opacity: 0 });
-      gsap.set(developerTextRef.current, { yPercent: 110, rotateX: -45, opacity: 0 });
-      gsap.set(resumeContainerRef.current, { scale: 0.5, opacity: 0, y: 20 });
-      gsap.set(missionTextRef.current, { opacity: 0, y: 30, filter: 'blur(8px)' });
-      if (socialsRef.current?.children) {
-        gsap.set(socialsRef.current.children, { opacity: 0, y: 35, scale: 0.8 });
+      // Initial state
+      gsap.set([line1Ref.current, line2Ref.current, line3Ref.current], {
+        yPercent: 110,
+        opacity: 0,
+        rotateX: 35,
+      });
+      gsap.set(asideDescRef.current, { opacity: 0, y: 25, filter: 'blur(6px)' });
+      if (asideIndexRef.current?.children) {
+        gsap.set(asideIndexRef.current.children, { opacity: 0, x: -20 });
       }
-      gsap.set(bottomBarRef.current, { opacity: 0, y: 20 });
-      gsap.set(floorRef.current, { opacity: 0, scale: 0.95 });
+      gsap.set(actionPillRef.current, { scale: 0.8, opacity: 0 });
+      if (socialsRef.current?.children) {
+        gsap.set(socialsRef.current.children, { opacity: 0, y: 25, scale: 0.85 });
+      }
+      gsap.set(floorRef.current, { opacity: 0 });
 
-      // 2. Kinetic Entrance Timeline
+      // Kinetic timeline sequence
       tl.to(floorRef.current, {
         opacity: 0.35,
-        scale: 1,
-        duration: 1.6,
+        duration: 1.5,
         ease: 'power3.out',
       })
       .to(
-        fullstackTextRef.current,
+        line1Ref.current,
         {
           yPercent: 0,
-          rotateX: 0,
           opacity: 1,
-          duration: 1.2,
-          ease: 'power4.out',
+          rotateX: 0,
+          duration: 1.1,
         },
         '-=1.2'
       )
       .to(
-        resumeContainerRef.current,
+        line2Ref.current,
+        {
+          yPercent: 0,
+          opacity: 1,
+          rotateX: 0,
+          duration: 1.1,
+        },
+        '-=0.9'
+      )
+      .to(
+        line3Ref.current,
+        {
+          yPercent: 0,
+          opacity: 1,
+          rotateX: 0,
+          duration: 1.2,
+        },
+        '-=0.9'
+      )
+      .to(
+        actionPillRef.current,
         {
           scale: 1,
           opacity: 1,
-          y: 0,
-          duration: 0.9,
+          duration: 0.8,
           ease: 'back.out(1.8)',
         },
         '-=0.8'
       )
       .to(
-        developerTextRef.current,
-        {
-          yPercent: 0,
-          rotateX: 0,
-          opacity: 1,
-          duration: 1.3,
-          ease: 'power4.out',
-        },
-        '-=0.9'
-      )
-      .to(
-        missionTextRef.current,
+        asideDescRef.current,
         {
           opacity: 1,
           y: 0,
@@ -97,6 +109,20 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
         '-=0.7'
       );
 
+      if (asideIndexRef.current?.children) {
+        tl.to(
+          asideIndexRef.current.children,
+          {
+            opacity: 1,
+            x: 0,
+            stagger: 0.1,
+            duration: 0.7,
+            ease: 'power3.out',
+          },
+          '-=0.6'
+        );
+      }
+
       if (socialsRef.current?.children) {
         tl.to(
           socialsRef.current.children,
@@ -104,51 +130,32 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
             opacity: 1,
             y: 0,
             scale: 1,
-            stagger: 0.08,
-            duration: 0.8,
+            stagger: 0.07,
+            duration: 0.7,
             ease: 'back.out(1.6)',
           },
-          '-=0.6'
+          '-=0.5'
         );
       }
 
-      tl.to(
-        bottomBarRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-        },
-        '-=0.4'
-      );
-
-      // 3. Interactive Mouse Parallax in Hero
-      const heroElement = heroRef.current;
-      if (heroElement && floorRef.current && glowRef.current) {
-        const floorQuickX = gsap.quickTo(floorRef.current, 'rotateY', { duration: 0.6, ease: 'power2.out' });
-        const floorQuickY = gsap.quickTo(floorRef.current, 'rotateX', { duration: 0.6, ease: 'power2.out' });
-        const glowQuickX = gsap.quickTo(glowRef.current, 'x', { duration: 0.8, ease: 'power3.out' });
-        const glowQuickY = gsap.quickTo(glowRef.current, 'y', { duration: 0.8, ease: 'power3.out' });
-
-        const handleMouseMove = (e: MouseEvent) => {
-          const rect = heroElement.getBoundingClientRect();
-          const relX = (e.clientX - rect.left) / rect.width - 0.5;
-          const relY = (e.clientY - rect.top) / rect.height - 0.5;
-
-          floorQuickX(relX * 12);
-          floorQuickY(60 - relY * 10);
-          glowQuickX(relX * 120);
-          glowQuickY(relY * 100);
-        };
-
-        heroElement.addEventListener('mousemove', handleMouseMove, { passive: true });
-        return () => heroElement.removeEventListener('mousemove', handleMouseMove);
+      // Background studiors marquee loop
+      if (marqueeRef.current) {
+        gsap.to(marqueeRef.current, {
+          xPercent: -50,
+          repeat: -1,
+          duration: 20,
+          ease: 'none',
+        });
       }
     }, heroRef);
 
     return () => ctx.revert();
   }, []);
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const renderSocialIcon = (name: string) => {
     switch (name.toLowerCase()) {
@@ -167,104 +174,128 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
     }
   };
 
+  const featuredProjects = [
+    { num: '01', title: 'Responsive Portfolio', cat: 'Next.js & GSAP' },
+    { num: '02', title: 'Interactive Quiz App', cat: 'Python & Tkinter' },
+    { num: '03', title: 'E-Commerce Platform', cat: 'Full-Stack Architecture' },
+  ];
+
   return (
     <section
       ref={heroRef}
       id="hero"
-      className="relative min-h-[95vh] flex flex-col justify-between pt-28 sm:pt-36 pb-12 overflow-hidden bg-[#0a0a0c]"
+      className="relative min-h-[96vh] flex flex-col justify-between pt-32 sm:pt-40 pb-12 overflow-hidden bg-[#0E0E0D]"
     >
       {/* Background Dot Matrix Pattern with Radial Glow */}
-      <div className="absolute inset-0 pointer-events-none dot-matrix opacity-40 z-0"></div>
-      <div
-        ref={glowRef}
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl pointer-events-none z-0"
-      ></div>
+      <div className="absolute inset-0 pointer-events-none dot-matrix opacity-25 z-0"></div>
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-br from-white/6 to-transparent rounded-full blur-3xl pointer-events-none z-0"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 w-full my-auto">
-        {/* Massive Typography Grid */}
-        <div className="relative">
-          {/* Row 1: "Full-stack" + Resume Pill & Arrow */}
-          <div className="flex flex-wrap items-baseline gap-4 sm:gap-8 justify-start">
-            <div className="overflow-hidden py-1">
-              <h1
-                ref={fullstackTextRef}
-                className="font-serif font-bold text-[13vw] sm:text-[9vw] lg:text-[8.5rem] text-white tracking-tight leading-none select-none drop-shadow-sm will-change-transform"
-              >
-                Full-stack
-              </h1>
-            </div>
-
-            {/* Resume Pill with Download Arrow */}
-            <div ref={resumeContainerRef} className="inline-flex items-center gap-2 mb-2 sm:mb-4 will-change-transform">
-              <Magnetic strength={0.4}>
-                <button
-                  onClick={onOpenResume}
-                  className="group flex items-center gap-2.5 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-white text-black hover:bg-gray-100 transition-all duration-300 shadow-2xl font-sans text-xs sm:text-sm font-medium cursor-pointer hover:shadow-white/20"
-                  aria-label="Open Resume"
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+          {/* Left Column: studiors.be Massive Kinetic Typography */}
+          <div className="lg:col-span-8">
+            <h1 className="select-none tracking-tight leading-[0.88] text-[#F4F3EF]">
+              <span className="block overflow-hidden py-1">
+                <span
+                  ref={line1Ref}
+                  className="block font-sans font-black text-[15vw] sm:text-[11vw] lg:text-[8rem] tracking-tighter uppercase will-change-transform"
                 >
-                  <span className="italic font-serif font-bold">Resume...</span>
-                </button>
-              </Magnetic>
+                  {profile.firstName}
+                </span>
+              </span>
 
-              <Magnetic strength={0.5}>
-                <button
-                  onClick={onOpenResume}
-                  className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white text-black flex items-center justify-center hover:bg-gray-100 transition-all duration-300 shadow-2xl cursor-pointer hover:shadow-white/20 group"
-                  aria-label="Download Resume"
+              <span className="block overflow-hidden py-1">
+                <span
+                  ref={line2Ref}
+                  className="block font-serif italic font-normal text-[15vw] sm:text-[11vw] lg:text-[7.8rem] text-gray-300 ml-4 sm:ml-12 will-change-transform"
                 >
-                  <HiArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-1 duration-300" />
-                </button>
-              </Magnetic>
-            </div>
+                  Full-stack
+                </span>
+              </span>
+
+              <span className="block overflow-hidden py-1">
+                <span
+                  ref={line3Ref}
+                  className="block font-sans font-black text-[15vw] sm:text-[11vw] lg:text-[8rem] tracking-tighter uppercase will-change-transform"
+                >
+                  Developer
+                </span>
+              </span>
+            </h1>
           </div>
 
-          {/* Row 2: Left Mission Statement + Right "Developer" */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start mt-2 sm:mt-4">
-            {/* Left Column: Mission statement */}
-            <div className="md:col-span-4 lg:col-span-4 pt-2 md:pt-4">
-              <p
-                ref={missionTextRef}
-                className="text-gray-400 text-xs sm:text-sm font-sans leading-relaxed max-w-xs will-change-transform"
-              >
-                My goal is to{' '}
-                <strong className="text-white font-medium italic">
-                  write maintainable, clean
-                </strong>{' '}
-                and{' '}
-                <strong className="text-white font-medium italic">
-                  understandable code
-                </strong>{' '}
-                to make development process enjoyable.
+          {/* Right Column: studiors.be Hero Aside & Quick Project Index */}
+          <div className="lg:col-span-4 flex flex-col justify-between space-y-8 pb-3">
+            {/* Description */}
+            <p
+              ref={asideDescRef}
+              className="text-[#8A8985] text-xs sm:text-sm font-sans leading-relaxed max-w-sm will-change-transform"
+            >
+              Akankshya Mishra is a full-stack engineer crafting scalable applications with clean code, modern web architectures, and fine-tuned micro-interactions.
+            </p>
+
+            {/* Quick Project Index matching studiors.be */}
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-wider text-[#5C5B57] mb-3">
+                (Featured Index)
               </p>
+              <ul ref={asideIndexRef} className="space-y-2.5 font-sans text-xs">
+                {featuredProjects.map((p, idx) => (
+                  <li key={idx} className="group">
+                    <button
+                      onClick={() => scrollToSection('projects')}
+                      className="flex items-center justify-between w-full py-1 text-left text-gray-300 group-hover:text-white transition-colors cursor-pointer border-b border-white/5 pb-2"
+                    >
+                      <span className="flex items-center gap-3">
+                        <i className="font-mono text-[10px] text-emerald-400 not-italic">
+                          {p.num}
+                        </i>
+                        <span className="font-medium">{p.title}</span>
+                      </span>
+                      <span className="font-mono text-[10px] text-gray-500 group-hover:text-gray-300">
+                        {p.cat}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            {/* Right Column: Massive "Developer" */}
-            <div className="md:col-span-8 lg:col-span-8 flex justify-start md:justify-center overflow-hidden py-1">
-              <h1
-                ref={developerTextRef}
-                className="font-serif font-bold text-[13vw] sm:text-[9vw] lg:text-[8.5rem] text-white tracking-tight leading-none select-none drop-shadow-sm will-change-transform"
-              >
-                Developer
-              </h1>
+            {/* Resume Pill Action */}
+            <div ref={actionPillRef} className="pt-2 flex items-center gap-3">
+              <Magnetic strength={0.35}>
+                <button
+                  onClick={onOpenResume}
+                  className="group flex items-center gap-3 px-6 py-3 rounded-full bg-[#F4F3EF] text-black hover:bg-white transition-all shadow-xl font-sans text-xs sm:text-sm font-bold cursor-pointer"
+                  aria-label="View Resume"
+                >
+                  <span className="font-serif italic font-normal">Resume...</span>
+                  <HiArrowDown className="w-3.5 h-3.5 transition-transform group-hover:translate-y-0.5" />
+                </button>
+              </Magnetic>
+
+              <div className="font-mono text-[11px] text-[#8A8985]">
+                <span>{profile.yearsExperience}+ Years Exp.</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Social Pills Bar with Magnetic Physics */}
+        {/* Social Pills Bar */}
         <div
           ref={socialsRef}
-          className="mt-14 sm:mt-20 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
+          className="mt-16 sm:mt-20 flex flex-wrap items-center justify-start gap-3 sm:gap-4"
         >
           {socials.map((social: SocialLink, index: number) => (
-            <Magnetic key={index} strength={0.3}>
+            <Magnetic key={index} strength={0.25}>
               <a
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="pill-btn group hover:border-white/80 hover:bg-white/15"
+                className="studiors-pill group"
                 aria-label={`Visit ${social.name}`}
               >
-                <span className="transition-transform group-hover:scale-125 duration-300">
+                <span className="transition-transform group-hover:scale-110 duration-200">
                   {renderSocialIcon(social.name)}
                 </span>
                 <span className="font-medium text-xs sm:text-sm">{social.name}</span>
@@ -274,42 +305,30 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
         </div>
       </div>
 
-      {/* Bottom Section: Transition with Perspective Grid and About Snippet */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 w-full mt-16 sm:mt-24">
-        {/* 3D Perspective Grid receding into bottom floor */}
-        <div
-          ref={floorRef}
-          className="absolute inset-x-0 bottom-0 h-32 pointer-events-none perspective-grid-floor opacity-30 z-0 will-change-transform"
-        ></div>
-
-        <div
-          ref={bottomBarRef}
-          className="relative z-10 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 pt-8 border-t border-white/10 will-change-transform"
-        >
-          {/* Left: Monospace section tag */}
-          <div className="font-mono text-xs sm:text-sm text-gray-400 tracking-wider">
-            <span className="text-white font-semibold">... /About me ...</span>
-          </div>
-
-          {/* Right: Intro snippet */}
-          <div className="text-xs sm:text-sm text-gray-400 font-sans leading-relaxed text-left sm:text-right max-w-sm">
-            <p>
-              Hello! I'm{' '}
-              <strong className="text-white font-semibold">
-                {profile.firstName}
-              </strong>
-              , a full-stack developer.
-            </p>
-            <p>
-              With more than{' '}
-              <strong className="text-white font-semibold">
-                {profile.yearsExperience} years
-              </strong>{' '}
-              experience.
-            </p>
-          </div>
+      {/* Looping studiors-inspired marquee track */}
+      <div className="w-full overflow-hidden border-t border-b border-white/10 py-3 mt-14 bg-[#121211] select-none">
+        <div ref={marqueeRef} className="flex whitespace-nowrap will-change-transform">
+          {[...Array(6)].map((_, i) => (
+            <span
+              key={i}
+              className="inline-flex items-center mx-6 font-mono text-xs tracking-widest text-[#8A8985] uppercase"
+            >
+              <span>{profile.firstName.toLowerCase()}</span>
+              <span className="italic font-serif text-white mx-2">.{profile.lastName.toLowerCase()}</span>
+              <span className="text-gray-500">· full-stack developer</span>
+              <span className="mx-4 text-emerald-400">✦</span>
+              <span>portfolio 2026</span>
+              <span className="mx-4 text-gray-600">/</span>
+            </span>
+          ))}
         </div>
       </div>
+
+      {/* Bottom Perspective Grid Floor */}
+      <div
+        ref={floorRef}
+        className="absolute inset-x-0 bottom-0 h-28 pointer-events-none perspective-grid-floor opacity-30 z-0 will-change-transform"
+      ></div>
     </section>
   );
 };
