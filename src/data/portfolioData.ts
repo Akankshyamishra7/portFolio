@@ -205,6 +205,25 @@ export const portfolioData: PortfolioData = {
       description: "Full-stack e-commerce web platform featuring product catalogs, state-managed shopping cart, responsive filtering, and checkout flows.",
       technologies: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
       githubUrl: "https://github.com/Akankshyamishra7",
+      featured: true
+    },
+    {
+      id: "ai-prompt-studio",
+      title: "AI Prompt Studio & LLM Interface",
+      subtitle: "Real-time Generative Assistant",
+      description: "Modern AI workflow workspace integrating streaming completions, prompt history persistence, and syntax-highlighted code generation with instant response latency.",
+      technologies: ["Next.js 16", "TypeScript", "Vercel AI SDK", "Groq Cloud", "Tailwind CSS"],
+      githubUrl: "https://github.com/Akankshyamishra7",
+      liveUrl: "https://github.com/Akankshyamishra7",
+      featured: true
+    },
+    {
+      id: "cloud-task-manager",
+      title: "Distributed Task Engine & Dashboard",
+      subtitle: "Full-Stack Workflow Platform",
+      description: "Scalable project workflow tracker with optimistic UI updates, drag-and-drop status pipelines, role authentication, and responsive analytics tables.",
+      technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "REST APIs"],
+      githubUrl: "https://github.com/Akankshyamishra7",
       featured: false
     }
   ],

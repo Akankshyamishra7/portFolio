@@ -18,48 +18,63 @@ export const Manifesto: React.FC = () => {
     const ctx = gsap.context(() => {
       // Rail stats animation
       if (railRef.current?.children) {
-        gsap.from(railRef.current.children, {
-          scrollTrigger: {
-            trigger: railRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-          y: 40,
-          opacity: 0,
-          stagger: 0.15,
-          duration: 0.9,
-          ease: 'power3.out',
-        });
+        gsap.fromTo(
+          railRef.current.children,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: railRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
 
       // Manifesto text kinetic reveal
       if (textRef.current) {
-        gsap.from(textRef.current, {
-          scrollTrigger: {
-            trigger: textRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-          y: 50,
-          opacity: 0,
-          duration: 1.2,
-          ease: 'power4.out',
-        });
+        gsap.fromTo(
+          textRef.current,
+          { opacity: 0, y: 35 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: 'power4.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: textRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
 
       // Subtitle reveal
       if (subTextRef.current) {
-        gsap.from(subTextRef.current, {
-          scrollTrigger: {
-            trigger: subTextRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-          y: 30,
-          opacity: 0,
-          duration: 1,
-          ease: 'power3.out',
-        });
+        gsap.fromTo(
+          subTextRef.current,
+          { opacity: 0, y: 25 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: subTextRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
     }, sectionRef);
 

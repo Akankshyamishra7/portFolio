@@ -93,8 +93,8 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const subjects = ['Site web', 'Full-stack Web App', 'UI/UX Design', 'API & Cloud Architecture'];
-  const budgets = ['1,5 K – 3 K', '3 K – 5 K', '5 K – 15 K', '> 15 K'];
+  const subjects = ['Web Application', 'Full-stack System', 'Frontend & UI/UX', 'Cloud Architecture', 'Open Source / Other'];
+  const budgets = ['< $1K', '$1K – $3K', '$3K – $8K', '$8K+'];
 
   return (
     <div
@@ -115,7 +115,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
           <HiX className="w-5 h-5" />
         </button>
 
-        {/* studiors.be Multi-Step Form Header */}
+        {/* Multi-Step Form Header */}
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs font-bold text-emerald-400">
@@ -123,9 +123,9 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
             </span>
             <span className="font-mono text-xs text-[#8A8985]">/ 03</span>
             <span className="text-xs font-mono text-[#8A8985] ml-2">
-              {step === 1 && '· Qui êtes-vous ?'}
-              {step === 2 && '· Le projet'}
-              {step === 3 && '· Racontez-moi'}
+              {step === 1 && '· Your Details'}
+              {step === 2 && '· Project Scope'}
+              {step === 3 && '· Vision & Message'}
             </span>
           </div>
 
@@ -142,9 +142,9 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
             <div className="w-14 h-14 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto shadow-[0_0_20px_rgba(34,197,94,0.4)] animate-bounce">
               <HiCheck className="w-8 h-8" />
             </div>
-            <h4 className="font-serif font-bold text-2xl text-white">Bien reçu.</h4>
+            <h4 className="font-serif font-bold text-2xl text-white">Message Received!</h4>
             <p className="text-xs sm:text-sm text-[#8A8985] max-w-xs mx-auto leading-relaxed">
-              Message envoyé. Je reviens vers vous sous 48 h ouvrées avec une première lecture de votre projet.
+              Thank you for reaching out. I will get back to you within 24-48 business hours with thoughts on your project.
             </p>
           </div>
         ) : (
@@ -154,28 +154,28 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
               <div className="space-y-4 animate-fade-in-up">
                 <div>
                   <label className="block text-xs font-mono text-[#8A8985] mb-1.5">
-                    Prénom & nom
+                    Your Name
                   </label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Camille Dupont"
+                    placeholder="Alex Morgan"
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 focus:border-white/50 text-[#F4F3EF] text-xs sm:text-sm focus:outline-none transition-colors"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-mono text-[#8A8985] mb-1.5">
-                    Email
+                    Email Address
                   </label>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="camille@exemple.com"
+                    placeholder="alex@company.com"
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 focus:border-white/50 text-[#F4F3EF] text-xs sm:text-sm focus:outline-none transition-colors"
                   />
                 </div>
@@ -187,7 +187,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
               <div className="space-y-5 animate-fade-in-up">
                 <div>
                   <label className="block text-xs font-mono text-[#8A8985] mb-2.5">
-                    Il s'agit de…
+                    Project Type / Subject
                   </label>
                   <div className="flex flex-wrap gap-2">
                     {subjects.map((sub, idx) => (
@@ -209,7 +209,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
 
                 <div>
                   <label className="block text-xs font-mono text-[#8A8985] mb-2.5">
-                    Budget envisagé <em className="text-gray-500 font-normal">· indicatif</em>
+                    Expected Budget <em className="text-gray-500 font-normal">· estimate</em>
                   </label>
                   <div className="flex flex-wrap gap-2">
                     {budgets.map((b, idx) => (
@@ -236,14 +236,14 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
               <div className="space-y-4 animate-fade-in-up">
                 <div>
                   <label className="block text-xs font-mono text-[#8A8985] mb-1.5">
-                    Votre projet en quelques lignes
+                    Tell me about your project
                   </label>
                   <textarea
                     required
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Contexte, envies, échéances souhaitées..."
+                    placeholder="Project background, goals, target timeline..."
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 focus:border-white/50 text-[#F4F3EF] text-xs sm:text-sm focus:outline-none transition-colors resize-none"
                   />
                 </div>
@@ -257,7 +257,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                     required
                   />
                   <span>
-                    J'accepte que mes informations soient utilisées pour répondre à ma demande.
+                    I agree to share these details to discuss project requirements.
                   </span>
                 </label>
               </div>
@@ -271,14 +271,14 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                   onClick={() => setStep(step - 1)}
                   className="text-xs font-mono text-[#8A8985] hover:text-white transition-colors cursor-pointer"
                 >
-                  ← Retour
+                  ← Back
                 </button>
               ) : (
                 <a
                   href="mailto:akankshyam4@gmail.com"
                   className="text-xs font-mono text-[#8A8985] hover:text-white underline"
                 >
-                  ou email direct
+                  or direct email
                 </a>
               )}
 
@@ -286,7 +286,7 @@ const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
                 type="submit"
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#F4F3EF] text-black font-semibold text-xs sm:text-sm hover:bg-white transition-all cursor-pointer shadow-xl hover:shadow-white/20"
               >
-                <span>{step === 3 ? 'Envoyer' : 'Continuer'}</span>
+                <span>{step === 3 ? 'Send Message' : 'Continue'}</span>
                 {step === 3 ? (
                   <FaPaperPlane className="w-3.5 h-3.5" />
                 ) : (

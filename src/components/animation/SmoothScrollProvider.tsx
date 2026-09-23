@@ -19,7 +19,7 @@ export const SmoothScrollProvider: React.FC<SmoothScrollProviderProps> = ({ chil
   useEffect(() => {
     // Initialize Lenis luxury smooth scroll
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
@@ -29,9 +29,14 @@ export const SmoothScrollProvider: React.FC<SmoothScrollProviderProps> = ({ chil
     });
 
     lenisRef.current = lenis;
+    if (typeof window !== 'undefined') {
+      (window as unknown as { __lenis: Lenis }).__lenis = lenis;
+    }
 
     // Connect Lenis to GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+    lenis.on('scroll', () => {
+      ScrollTrigger.update();
+    });
 
     const updateTicker = (time: number) => {
       lenis.raf(time * 1000);
@@ -40,16 +45,20 @@ export const SmoothScrollProvider: React.FC<SmoothScrollProviderProps> = ({ chil
     gsap.ticker.add(updateTicker);
     gsap.ticker.lagSmoothing(0);
 
-    // Refresh ScrollTrigger after DOM settle
-    const refreshTimer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 500);
+    // Initial and deferred ScrollTrigger refresh
+    ScrollTrigger.refresh();
+    const refreshTimer1 = setTimeout(() => ScrollTrigger.refresh(), 200);
+    const refreshTimer2 = setTimeout(() => ScrollTrigger.refresh(), 1000);
 
     return () => {
-      clearTimeout(refreshTimer);
+      clearTimeout(refreshTimer1);
+      clearTimeout(refreshTimer2);
       gsap.ticker.remove(updateTicker);
       lenis.destroy();
       lenisRef.current = null;
+      if (typeof window !== 'undefined') {
+        delete (window as unknown as { __lenis?: Lenis }).__lenis;
+      }
     };
   }, []);
 

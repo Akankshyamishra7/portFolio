@@ -103,53 +103,68 @@ const AboutSkills: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Header scroll trigger reveal
-      if (headerRef.current) {
-        gsap.from(headerRef.current.children, {
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-          y: 40,
-          opacity: 0,
-          stagger: 0.15,
-          duration: 0.9,
-          ease: 'power3.out',
-        });
+      // 1. Header reveal
+      if (headerRef.current?.children) {
+        gsap.fromTo(
+          headerRef.current.children,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
 
       // 2. Bento Cards Entrance with 3D Pop
-      if (cardsContainerRef.current) {
-        gsap.from(cardsContainerRef.current.children, {
-          scrollTrigger: {
-            trigger: cardsContainerRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-          y: 70,
-          scale: 0.9,
-          opacity: 0,
-          stagger: 0.14,
-          duration: 1.1,
-          ease: 'power4.out',
-        });
+      if (cardsContainerRef.current?.children) {
+        gsap.fromTo(
+          cardsContainerRef.current.children,
+          { opacity: 0, y: 40, scale: 0.97 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: cardsContainerRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
 
       // 3. Languages Row Entrance
-      if (languagesRef.current) {
-        gsap.from(languagesRef.current.children, {
-          scrollTrigger: {
-            trigger: languagesRef.current,
-            start: 'top 90%',
-            toggleActions: 'play none none none',
-          },
-          y: 30,
-          opacity: 0,
-          stagger: 0.1,
-          duration: 0.8,
-          ease: 'back.out(1.5)',
-        });
+      if (languagesRef.current?.children) {
+        gsap.fromTo(
+          languagesRef.current.children,
+          { opacity: 0, y: 25 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.1,
+            duration: 0.7,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: languagesRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
     }, sectionRef);
 
@@ -159,16 +174,16 @@ const AboutSkills: React.FC = () => {
   return (
     <section ref={sectionRef} id="about" className="py-20 sm:py-28 bg-[#0E0E0D] border-t border-white/10 relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        {/* Section Header matching studiors.be */}
+        {/* Section Header */}
         <div ref={headerRef} className="mb-14">
           <p className="font-mono text-xs uppercase tracking-widest text-[#8A8985] mb-3">
-            (Expertise & Architecture)
+            (03 / Capabilities & Architecture)
           </p>
           <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl text-[#F4F3EF] font-bold mb-4 tracking-tight">
-            Ce que je fais <span className="font-editorial italic font-normal text-gray-400">· Capabilities</span>
+            Technical Stack <span className="font-serif italic font-normal text-white/70">& Capabilities</span>
           </h2>
-          <p className="text-[#8A8985] text-base sm:text-lg font-sans leading-relaxed max-w-3xl">
-            Modern stack mastery. Scalable architecture, performant front-end engineering, and precision micro-interactions.
+          <p className="text-[#8A8985] text-sm sm:text-base font-sans leading-relaxed max-w-3xl">
+            Modern full-stack mastery. Scalable architecture, performant front-end engineering, type-safe APIs, and precision micro-interactions.
           </p>
         </div>
 

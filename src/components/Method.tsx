@@ -24,32 +24,32 @@ export const Method: React.FC = () => {
   const steps: StepItem[] = [
     {
       num: '01',
-      phase: 'Immersion',
-      name: 'Écouter & Architect',
+      phase: 'Discovery',
+      name: 'Discover & Architect',
       description:
         'I dive deep into requirements, system constraints, and core objectives. I write no code before thoroughly understanding data structures and performance requirements.',
       meta: 'Requirements · Architecture · Data Schema',
     },
     {
       num: '02',
-      phase: 'Direction',
-      name: 'Dessiner & Design System',
+      phase: 'Design',
+      name: 'System & UI Prototype',
       description:
         'I establish a rigorous visual direction: typography hierarchy, color tokens, fluid spacing, and modular component design with WCAG accessibility standards.',
       meta: 'UI/UX Design · Component Hierarchy · Prototypes',
     },
     {
       num: '03',
-      phase: 'Production',
-      name: 'Construire & GSAP Motion',
+      phase: 'Engineering',
+      name: 'Full-Stack & Motion',
       description:
         'I develop the full-stack system in Next.js and TypeScript, integrating fluid GSAP animations and responsive APIs where motion genuinely elevates the experience.',
       meta: 'Next.js 16 · TypeScript · GSAP Motion · Scalable APIs',
     },
     {
       num: '04',
-      phase: 'Launch',
-      name: 'Livrer & Optimization',
+      phase: 'Delivery',
+      name: 'Optimize & Cloud Launch',
       description:
         'I deploy with automated CI/CD pipelines, optimize bundle sizes and SEO metadata, and provide clean documentation to ensure frictionless scaling.',
       meta: 'Cloud Deployment · SEO & Speed · Documentation',
@@ -59,35 +59,45 @@ export const Method: React.FC = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Header entrance
-      if (headRef.current) {
-        gsap.from(headRef.current.children, {
-          scrollTrigger: {
-            trigger: headRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-          y: 40,
-          opacity: 0,
-          stagger: 0.15,
-          duration: 0.9,
-          ease: 'power3.out',
-        });
+      if (headRef.current?.children) {
+        gsap.fromTo(
+          headRef.current.children,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: headRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
 
       // Step cards cascade
       if (cardsRef.current?.children) {
-        gsap.from(cardsRef.current.children, {
-          scrollTrigger: {
-            trigger: cardsRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-          y: 60,
-          opacity: 0,
-          stagger: 0.15,
-          duration: 1,
-          ease: 'power4.out',
-        });
+        gsap.fromTo(
+          cardsRef.current.children,
+          { opacity: 0, y: 35 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
     }, sectionRef);
 
@@ -98,38 +108,37 @@ export const Method: React.FC = () => {
     <section
       ref={sectionRef}
       id="methode"
-      className="py-24 sm:py-36 bg-[#0E0E0D] border-t border-white/10 relative"
+      className="py-20 sm:py-28 bg-[#0E0E0D] border-t border-white/10 relative"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        {/* Method Header matching studiors.be */}
-        <div ref={headRef} className="mb-16">
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-4">
+        {/* Method Header */}
+        <div ref={headRef} className="mb-14">
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-3">
             <p className="font-mono text-xs uppercase tracking-widest text-[#8A8985]">
-              03 · Ma manière de faire
+              (03 / Engineering Discipline)
             </p>
             <p className="text-xs sm:text-sm text-[#8A8985] font-sans max-w-md">
-              A disciplined trajectory from first discussion to production launch: rigorous enough to scale, agile enough to innovate.
+              A disciplined trajectory from initial discussion to production launch: rigorous enough to scale, agile enough to innovate.
             </p>
           </div>
 
-          <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-[#F4F3EF] tracking-tight">
-            <span className="font-editorial italic font-normal text-gray-400">La </span>
-            Méthode
+          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#F4F3EF] tracking-tight">
+            The Engineering <span className="font-serif italic font-normal text-white/70">Process</span>
           </h2>
 
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-b border-white/10 pb-6 mt-4">
-            <p className="font-sans text-sm sm:text-base text-gray-300">
-              <span className="font-semibold text-white">Quatre temps. </span>
-              <em className="font-editorial italic text-gray-400">Aucun raccourci.</em>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-b border-white/10 pb-5 mt-4">
+            <p className="font-sans text-xs sm:text-sm text-[#8A8985]">
+              <span className="font-semibold text-white">Four phases. </span>
+              <em>Zero shortcuts.</em>
             </p>
             <div className="flex items-center gap-6 font-mono text-xs text-[#8A8985] overflow-x-auto">
-              <span>01 Écouter</span>
+              <span>01 Discover</span>
               <span>·</span>
-              <span>02 Dessiner</span>
+              <span>02 Design</span>
               <span>·</span>
-              <span>03 Construire</span>
+              <span>03 Engineer</span>
               <span>·</span>
-              <span>04 Livrer</span>
+              <span>04 Deploy</span>
             </div>
           </div>
         </div>

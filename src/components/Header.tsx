@@ -27,7 +27,11 @@ const Header: React.FC<HeaderProps> = ({ onOpenArticles, onOpenResume, onOpenCon
   const scrollToSection = (id: string) => {
     setIsMobileMenuOpen(false);
     const element = document.getElementById(id);
-    if (element) {
+    if (!element) return;
+    const lenis = (window as unknown as { __lenis?: { scrollTo: (target: string | HTMLElement, opts?: object) => void } }).__lenis;
+    if (lenis) {
+      lenis.scrollTo(element, { offset: -70, duration: 1.2 });
+    } else {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
@@ -42,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenArticles, onOpenResume, onOpenCon
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between">
-          {/* studiors.be brand mark + name */}
+          {/* Akankshya Mishra Personal Monogram & Name */}
           <a
             href="#hero"
             onClick={(e) => {
@@ -52,19 +56,12 @@ const Header: React.FC<HeaderProps> = ({ onOpenArticles, onOpenResume, onOpenCon
             className="group flex items-center gap-3 text-white hover:opacity-90 transition-opacity"
             aria-label="Akankshya Mishra, return to top"
           >
-            {/* Geometric brand mark */}
-            <svg
-              className="w-5 h-5 text-white transition-transform group-hover:rotate-12 duration-300 fill-white"
-              viewBox="0 0 332 303"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path d="M0 0V271.015L75.5081 190.67V71.9509H159.406C200.316 71.3114 186.839 98.0665 174.987 111.524L117.058 171.483C28.765 253.827 67.5178 299.796 133.837 302.194H331.996L252.093 227.045H181.379C170.992 227.045 162.602 225.446 208.946 183.875L242.505 151.097C320.81 58.7603 251.294 0.000390359 185.774 0H0Z"></path>
-            </svg>
-            <span className="font-sans font-extrabold text-sm sm:text-base tracking-tight text-[#F4F3EF]">
+            <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center font-mono text-xs font-bold text-emerald-400 group-hover:border-emerald-400/50 group-hover:scale-105 transition-all">
+              AM
+            </div>
+            <span className="font-sans font-bold text-sm sm:text-base tracking-tight text-[#F4F3EF]">
               {profile.firstName.toLowerCase()}
-              <span className="font-serif italic font-normal text-gray-400">
+              <span className="font-serif italic font-normal text-[#8A8985]">
                 .{profile.lastName.toLowerCase()}
               </span>
             </span>
@@ -76,19 +73,19 @@ const Header: React.FC<HeaderProps> = ({ onOpenArticles, onOpenResume, onOpenCon
               onClick={() => scrollToSection('projects')}
               className="hover:text-[#F4F3EF] transition-colors cursor-pointer"
             >
-              Projets
+              Projects
             </button>
             <button
               onClick={() => scrollToSection('about')}
               className="hover:text-[#F4F3EF] transition-colors cursor-pointer"
             >
-              Studio
+              About
             </button>
             <button
-              onClick={() => scrollToSection('methode')}
+              onClick={() => scrollToSection('experience')}
               className="hover:text-[#F4F3EF] transition-colors cursor-pointer"
             >
-              Méthode
+              Experience
             </button>
             <button
               onClick={() => scrollToSection('feed')}
@@ -173,21 +170,21 @@ const Header: React.FC<HeaderProps> = ({ onOpenArticles, onOpenResume, onOpenCon
               className="flex items-baseline gap-4 text-left hover:text-white"
             >
               <i className="font-mono text-sm not-italic text-emerald-400">01</i>
-              <span>Projets</span>
+              <span>Projects</span>
             </button>
             <button
               onClick={() => scrollToSection('about')}
               className="flex items-baseline gap-4 text-left hover:text-white"
             >
               <i className="font-mono text-sm not-italic text-emerald-400">02</i>
-              <span>Studio & About</span>
+              <span>About & Skills</span>
             </button>
             <button
-              onClick={() => scrollToSection('methode')}
+              onClick={() => scrollToSection('experience')}
               className="flex items-baseline gap-4 text-left hover:text-white"
             >
               <i className="font-mono text-sm not-italic text-emerald-400">03</i>
-              <span>La Méthode</span>
+              <span>Experience & Journey</span>
             </button>
             <button
               onClick={() => scrollToSection('feed')}
@@ -205,7 +202,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenArticles, onOpenResume, onOpenCon
               className="flex items-baseline gap-4 text-left text-white"
             >
               <i className="font-mono text-sm not-italic text-emerald-400">05</i>
-              <span className="italic font-editorial">Let's talk →</span>
+              <span className="italic font-editorial">Let&apos;s talk →</span>
             </button>
           </nav>
 

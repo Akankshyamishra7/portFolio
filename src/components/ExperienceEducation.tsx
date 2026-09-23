@@ -58,18 +58,22 @@ const ExperienceEducation: React.FC = () => {
         // Experience Cards staggered entrance
         const cards = expColRef.current.querySelectorAll('.timeline-item');
         cards.forEach((card) => {
-          gsap.from(card, {
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 85%',
-              toggleActions: 'play none none none',
-            },
-            x: 40,
-            opacity: 0,
-            scale: 0.96,
-            duration: 0.8,
-            ease: 'power3.out',
-          });
+          gsap.fromTo(
+            card,
+            { x: 30, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.7,
+              ease: 'power3.out',
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 95%',
+                once: true,
+              },
+            }
+          );
 
           const dot = card.querySelector('.timeline-dot');
           if (dot) {
@@ -84,7 +88,7 @@ const ExperienceEducation: React.FC = () => {
                 duration: 0.5,
                 scrollTrigger: {
                   trigger: card,
-                  start: 'top 80%',
+                  start: 'top 85%',
                   toggleActions: 'play reverse play reverse',
                 },
               }
@@ -114,18 +118,22 @@ const ExperienceEducation: React.FC = () => {
         // Education Cards staggered entrance
         const eduCards = eduColRef.current.querySelectorAll('.timeline-item');
         eduCards.forEach((card) => {
-          gsap.from(card, {
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 85%',
-              toggleActions: 'play none none none',
-            },
-            x: 40,
-            opacity: 0,
-            scale: 0.96,
-            duration: 0.8,
-            ease: 'power3.out',
-          });
+          gsap.fromTo(
+            card,
+            { x: 30, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.7,
+              ease: 'power3.out',
+              clearProps: 'transform,opacity',
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 95%',
+                once: true,
+              },
+            }
+          );
 
           const dot = card.querySelector('.timeline-dot');
           if (dot) {
@@ -140,7 +148,7 @@ const ExperienceEducation: React.FC = () => {
                 duration: 0.5,
                 scrollTrigger: {
                   trigger: card,
-                  start: 'top 80%',
+                  start: 'top 85%',
                   toggleActions: 'play reverse play reverse',
                 },
               }
@@ -154,20 +162,20 @@ const ExperienceEducation: React.FC = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="experience" className="py-24 sm:py-32 bg-[#0E0E0D] border-t border-white/10 relative">
+    <section ref={sectionRef} id="experience" className="py-20 sm:py-28 bg-[#0E0E0D] border-t border-white/10 relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
         <div ref={headerRef} className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 sm:mb-20">
           <div>
             <div className="flex items-center gap-3 text-xs font-mono text-[#8A8985] tracking-widest uppercase mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-[#F4F3EF]"></span>
-              <span>(06 / Trajectoire & Éducation)</span>
+              <span>(04 / Trajectory & Education)</span>
             </div>
             <h2 className="font-serif font-light text-3xl sm:text-5xl lg:text-6xl text-[#F4F3EF] tracking-tight leading-none">
-              Parcours & <span className="font-serif italic font-normal text-white/70">Expérience</span>
+              Experience & <span className="font-serif italic font-normal text-white/70">Academic Journey</span>
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-[#8A8985] font-mono max-w-md">
-            Historique des rôles, responsabilités d&apos;ingénierie et fondations académiques en informatique.
+            History of engineering roles, open-source initiatives, and formal computer science foundations.
           </p>
         </div>
 
@@ -176,7 +184,7 @@ const ExperienceEducation: React.FC = () => {
           <div ref={expColRef}>
             <h3 className="font-serif font-normal text-xl sm:text-2xl text-[#F4F3EF] mb-8 flex items-center gap-3">
               <span className="w-2.5 h-2.5 rounded-full bg-[#F4F3EF] shadow-[0_0_12px_rgba(244,243,239,0.8)]"></span>
-              Expérience Professionnelle
+              Professional Experience
             </h3>
 
             <div className="space-y-8 relative pl-7">
@@ -240,7 +248,7 @@ const ExperienceEducation: React.FC = () => {
           <div ref={eduColRef}>
             <h3 className="font-serif font-normal text-xl sm:text-2xl text-[#F4F3EF] mb-8 flex items-center gap-3">
               <span className="w-2.5 h-2.5 rounded-full bg-[#F4F3EF] shadow-[0_0_12px_rgba(244,243,239,0.8)]"></span>
-              Formation & Diplômes
+              Academic Education & Degrees
             </h3>
 
             <div className="space-y-8 relative pl-7">

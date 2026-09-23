@@ -35,11 +35,14 @@ const ProjectSpotlightCard: React.FC<{
       className="spotlight-card group bg-[#141413] border border-white/10 rounded-3xl p-6 sm:p-8 flex flex-col justify-between hover:border-white/30 hover:shadow-2xl transition-all duration-300 will-change-transform"
     >
       <div className="relative z-10">
-        {/* Top bar with index and tags */}
+        {/* Top bar with index and status */}
         <div className="flex items-center justify-between gap-2 mb-6 pb-4 border-b border-white/10">
-          <span className="font-mono text-xs text-emerald-400 font-bold">
-            0{index + 1}
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></span>
+            <span className="font-mono text-xs text-emerald-400 font-bold">
+              0{index + 1}
+            </span>
+          </div>
           <div className="flex flex-wrap gap-1.5 justify-end">
             {project.technologies.slice(0, 3).map((tech, idx) => (
               <span
@@ -52,7 +55,7 @@ const ProjectSpotlightCard: React.FC<{
           </div>
         </div>
 
-        {/* Title & Subtitle matching studiors.be */}
+        {/* Title & Subtitle */}
         <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#F4F3EF] mb-2 group-hover:text-white transition-colors">
           {project.title}
         </h3>
@@ -63,19 +66,19 @@ const ProjectSpotlightCard: React.FC<{
         )}
 
         {/* Description */}
-        <p className="text-xs sm:text-sm text-gray-400 font-sans leading-relaxed mb-8 line-clamp-3">
+        <p className="text-xs sm:text-sm text-[#C4C3BE] font-sans leading-relaxed mb-8 line-clamp-3">
           {project.description}
         </p>
       </div>
 
-      {/* Actions Footer matching studiors.be "Voir le projet ↗" */}
+      {/* Actions Footer */}
       <div className="relative z-10 pt-5 border-t border-white/10 flex items-center justify-between gap-3">
         <Magnetic strength={0.25}>
           <button
             onClick={onOpenDetails}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#F4F3EF] text-black hover:bg-white transition-all font-sans text-xs sm:text-sm font-semibold cursor-pointer shadow-lg hover:shadow-white/20"
           >
-            <span>Voir le projet</span>
+            <span>View Project</span>
             <span className="font-mono text-xs">↗</span>
           </button>
         </Magnetic>
@@ -125,35 +128,45 @@ const Projects: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      if (headerRef.current) {
-        gsap.from(headerRef.current.children, {
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-          y: 40,
-          opacity: 0,
-          stagger: 0.15,
-          duration: 0.9,
-          ease: 'power3.out',
-        });
+      if (headerRef.current?.children) {
+        gsap.fromTo(
+          headerRef.current.children,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
 
-      if (gridRef.current) {
-        gsap.from(gridRef.current.children, {
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-          y: 80,
-          scale: 0.94,
-          opacity: 0,
-          stagger: 0.15,
-          duration: 1,
-          ease: 'power4.out',
-        });
+      if (gridRef.current?.children) {
+        gsap.fromTo(
+          gridRef.current.children,
+          { opacity: 0, y: 40, scale: 0.97 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            stagger: 0.1,
+            duration: 0.75,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: gridRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
     }, sectionRef);
 
@@ -197,29 +210,28 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="py-24 sm:py-36 bg-[#0E0E0D] border-t border-white/10 relative">
+    <section ref={sectionRef} id="projects" className="py-20 sm:py-28 bg-[#0E0E0D] border-t border-white/10 relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        {/* studiors.be .strip Header */}
-        <div ref={headerRef} className="mb-16">
-          <div className="flex items-center justify-between mb-4">
+        {/* Projects Section Header */}
+        <div ref={headerRef} className="mb-14">
+          <div className="flex items-center justify-between mb-3">
             <p className="font-mono text-xs uppercase tracking-widest text-[#8A8985]">
-              02 · Projets en image
+              (02 / Selected Works)
             </p>
             <span className="font-mono text-xs text-[#8A8985]">
-              01 / 0{projects.length}
+              01 – 0{projects.length}
             </span>
           </div>
 
-          <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-[#F4F3EF] tracking-tight mb-4">
-            <span>Voir, </span>
-            <em className="font-editorial italic font-normal text-gray-400">avant de lire.</em>
+          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-[#F4F3EF] tracking-tight mb-4">
+            Featured <span className="font-serif italic font-normal text-white/70">Engineering Projects</span>
           </h2>
 
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-b border-white/10 pb-6">
-            <p className="text-[#8A8985] text-sm sm:text-base font-sans">
-              Trois projets majeurs, trois univers construits jusque dans leurs micro-interactions.
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-b border-white/10 pb-5">
+            <p className="text-[#8A8985] text-xs sm:text-sm font-sans max-w-2xl">
+              Production-ready applications, developer tools, and scalable systems engineered with clean code and modern component architecture.
             </p>
-            <span className="font-mono text-sm text-gray-400 hidden sm:inline" aria-hidden="true">
+            <span className="font-mono text-sm text-[#8A8985] hidden sm:inline" aria-hidden="true">
               ↘
             </span>
           </div>

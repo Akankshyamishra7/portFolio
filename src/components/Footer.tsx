@@ -85,19 +85,19 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
       className="relative pt-24 pb-12 bg-[#0E0E0D] border-t border-white/10 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        {/* studiors.be Contact Section Prompt */}
+        {/* Contact Section Prompt */}
         <div ref={contactHeadRef} className="mb-20 pb-16 border-b border-white/10">
           <div className="flex items-center gap-2 mb-4">
             <span className="nav__cta-dot" />
             <span className="font-mono text-xs uppercase tracking-wider text-emerald-400">
-              Un créneau disponible ce trimestre · Available for new projects
+              Available for full-time engineering & freelance projects
             </span>
           </div>
 
           <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-[#F4F3EF] tracking-tight mb-6">
-            Un projet en tête ?{' '}
-            <span className="font-editorial italic font-normal text-gray-400 block sm:inline">
-              Let's build together.
+            Have an ambitious project in mind?{' '}
+            <span className="font-serif italic font-normal text-white/70 block sm:inline">
+              Let&apos;s build together.
             </span>
           </h2>
 
@@ -115,28 +115,23 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
                 className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#F4F3EF] text-black font-semibold text-sm sm:text-base hover:bg-white transition-all shadow-2xl cursor-pointer hover:shadow-white/20"
               >
                 <span className="nav__cta-dot" />
-                <span>Démarrer un projet →</span>
+                <span>Start a Conversation →</span>
               </button>
             </Magnetic>
           </div>
         </div>
 
-        {/* studiors.be Footer Grid */}
+        {/* Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-20 text-xs sm:text-sm font-sans">
           {/* Brand Info */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-4">
             <div className="flex items-center gap-3">
-              <svg
-                className="w-6 h-6 text-white fill-white"
-                viewBox="0 0 332 303"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M0 0V271.015L75.5081 190.67V71.9509H159.406C200.316 71.3114 186.839 98.0665 174.987 111.524L117.058 171.483C28.765 253.827 67.5178 299.796 133.837 302.194H331.996L252.093 227.045H181.379C170.992 227.045 162.602 225.446 208.946 183.875L242.505 151.097C320.81 58.7603 251.294 0.000390359 185.774 0H0Z"></path>
-              </svg>
+              <div className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center font-mono text-xs font-bold text-emerald-400">
+                AM
+              </div>
               <span className="font-bold text-base text-white tracking-tight">
                 {profile.firstName.toLowerCase()}
-                <span className="font-serif italic font-normal text-gray-400">
+                <span className="font-serif italic font-normal text-[#8A8985]">
                   .{profile.lastName.toLowerCase()}
                 </span>
               </span>
@@ -150,26 +145,26 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
           {/* Nav Column */}
           <div className="lg:col-span-2 space-y-3">
             <p className="font-mono text-xs uppercase tracking-wider text-[#5C5B57] mb-4">
-              Menu
+              Navigation
             </p>
             <div className="flex flex-col space-y-2 text-[#8A8985]">
               <button
                 onClick={() => scrollToSection('projects')}
                 className="text-left hover:text-white transition-colors cursor-pointer"
               >
-                Projets
+                Projects
               </button>
               <button
                 onClick={() => scrollToSection('about')}
                 className="text-left hover:text-white transition-colors cursor-pointer"
               >
-                Studio
+                About & Skills
               </button>
               <button
-                onClick={() => scrollToSection('methode')}
+                onClick={() => scrollToSection('experience')}
                 className="text-left hover:text-white transition-colors cursor-pointer"
               >
-                Méthode
+                Experience
               </button>
               <button
                 onClick={() => scrollToSection('feed')}
@@ -183,7 +178,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
           {/* Socials Column */}
           <div className="lg:col-span-2 space-y-3">
             <p className="font-mono text-xs uppercase tracking-wider text-[#5C5B57] mb-4">
-              Réseaux
+              Socials
             </p>
             <div className="flex flex-col space-y-2 text-[#8A8985]">
               {socials.map((s, idx) => (

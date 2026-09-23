@@ -32,50 +32,66 @@ const Feed: React.FC = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // 1. Header slide-in
-      if (headerRef.current) {
-        gsap.from(headerRef.current, {
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-          x: 60,
-          opacity: 0,
-          duration: 1,
-          ease: 'power4.out',
-        });
+      if (headerRef.current?.children) {
+        gsap.fromTo(
+          headerRef.current.children,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
 
       // 2. Divider line expansion
       if (dividerRef.current) {
-        gsap.from(dividerRef.current, {
-          scrollTrigger: {
-            trigger: dividerRef.current,
-            start: 'top 90%',
-            toggleActions: 'play none none none',
-          },
-          scaleX: 0,
-          transformOrigin: 'right center',
-          duration: 1.2,
-          ease: 'power3.inOut',
-        });
+        gsap.fromTo(
+          dividerRef.current,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            transformOrigin: 'left center',
+            duration: 1,
+            ease: 'power3.inOut',
+            clearProps: 'transform',
+            scrollTrigger: {
+              trigger: dividerRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
 
       // 3. Staggered Feed Cards Entrance
-      if (gridRef.current) {
-        gsap.from(gridRef.current.children, {
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          },
-          y: 90,
-          opacity: 0,
-          scale: 0.95,
-          stagger: 0.16,
-          duration: 1.1,
-          ease: 'power3.out',
-        });
+      if (gridRef.current?.children) {
+        gsap.fromTo(
+          gridRef.current.children,
+          { opacity: 0, y: 40, scale: 0.97 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            stagger: 0.12,
+            duration: 0.8,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              trigger: gridRef.current,
+              start: 'top 95%',
+              once: true,
+            },
+          }
+        );
       }
     }, sectionRef);
 
@@ -139,21 +155,21 @@ const Feed: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} id="feed" className="py-24 sm:py-32 bg-[#0E0E0D] border-t border-white/10 relative">
+    <section ref={sectionRef} id="feed" className="py-20 sm:py-28 bg-[#0E0E0D] border-t border-white/10 relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        {/* Section Header: studiors.be editorial tagging */}
+        {/* Section Header */}
         <div ref={headerRef} className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
           <div>
             <div className="flex items-center gap-3 text-xs font-mono text-[#8A8985] tracking-widest uppercase mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-[#F4F3EF]"></span>
-              <span>(05 / Journal & Veille)</span>
+              <span>(05 / Journal & Certifications)</span>
             </div>
             <h2 className="font-serif font-light text-3xl sm:text-5xl lg:text-6xl text-[#F4F3EF] tracking-tight leading-none">
-              Actualités & <span className="font-serif italic font-normal text-white/70">Publications</span>
+              Certifications & <span className="font-serif italic font-normal text-white/70">Insights</span>
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-[#8A8985] font-mono max-w-md">
-            Articles techniques, certifications cloud/frontend et réflexions sur l&apos;ingénierie web moderne.
+            Verified credentials, hackathon takeaways, and engineering reflections across the modern web ecosystem.
           </p>
         </div>
 
@@ -183,13 +199,13 @@ const Feed: React.FC = () => {
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
                           <span className="bg-[#F4F3EF] text-black px-4 py-2 rounded-full text-xs font-semibold shadow-lg flex items-center gap-2 transform translate-y-2 group-hover/img:translate-y-0 transition-transform">
-                            Voir le certificat <HiExternalLink className="w-3.5 h-3.5" />
+                            View Certificate <HiExternalLink className="w-3.5 h-3.5" />
                           </span>
                         </div>
                       </div>
                     )}
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[#8A8985]">
+                      <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-emerald-400">
                         Certification
                       </span>
                       <span className="text-xs text-[#8A8985] font-mono">{item.timeAgo}</span>
@@ -199,7 +215,7 @@ const Feed: React.FC = () => {
                     </h3>
                     <div className="text-xs text-[#8A8985] font-mono flex items-center justify-between pt-4 border-t border-white/10">
                       <span className="font-medium text-[#C4C3BE]">{item.badge || 'coursera.org'}</span>
-                      <span className="text-[11px] group-hover:underline flex items-center gap-1">Détails →</span>
+                      <span className="text-[11px] group-hover:underline flex items-center gap-1">Details →</span>
                     </div>
                   </div>
                 ) : (
@@ -294,8 +310,8 @@ const Feed: React.FC = () => {
 
             {selectedItem.type === 'certificate' ? (
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-widest text-[#8A8985] bg-white/5 border border-white/10 px-3 py-1 rounded-full font-medium">
-                  Certificat Officiel
+                <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full font-medium">
+                  Official Credential
                 </span>
                 <h3 className="font-serif font-light text-2xl sm:text-3xl text-[#F4F3EF] mt-4 mb-4">
                   {selectedItem.title}
@@ -317,7 +333,7 @@ const Feed: React.FC = () => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#F4F3EF] text-black hover:bg-white transition-all text-xs sm:text-sm font-semibold shadow-xl"
                   >
-                    Vérifier sur {selectedItem.badge} <HiExternalLink className="w-4 h-4" />
+                    Verify on {selectedItem.badge} <HiExternalLink className="w-4 h-4" />
                   </a>
                 )}
               </div>
@@ -345,11 +361,11 @@ const Feed: React.FC = () => {
                 <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-[#8A8985] font-mono">
                   <div className="flex items-center gap-2 text-[#0a66c2] font-semibold">
                     <FaThumbsUp className="w-3.5 h-3.5" />
-                    <span>{likesState[selectedItem.id]?.count || selectedItem.likes || 140} mentions j&apos;aime</span>
+                    <span>{likesState[selectedItem.id]?.count || selectedItem.likes || 140} likes</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <FaComment className="w-3.5 h-3.5" />
-                    <span>{selectedItem.comments || 24} commentaires</span>
+                    <span>{selectedItem.comments || 24} comments</span>
                   </div>
                 </div>
               </div>
