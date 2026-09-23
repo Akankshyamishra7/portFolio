@@ -11,6 +11,8 @@ import Footer from '@/components/Footer';
 import ResumeModal from '@/components/ResumeModal';
 import ArticlesModal from '@/components/ArticlesModal';
 import ContactModal from '@/components/ContactModal';
+import SmoothScrollProvider from '@/components/animation/SmoothScrollProvider';
+import CustomCursor from '@/components/animation/CustomCursor';
 
 export default function Home() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
@@ -29,7 +31,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c] text-white selection:bg-white selection:text-black">
+    <SmoothScrollProvider>
+      <CustomCursor />
+      <div className="min-h-screen bg-[#0a0a0c] text-white selection:bg-white selection:text-black">
       {/* Top Navigation */}
       <Header
         onOpenArticles={() => setIsArticlesOpen(true)}
@@ -73,6 +77,7 @@ export default function Home() {
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}
       />
-    </div>
+      </div>
+    </SmoothScrollProvider>
   );
 }
