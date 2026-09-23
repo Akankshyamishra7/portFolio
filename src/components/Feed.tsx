@@ -139,20 +139,28 @@ const Feed: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} id="feed" className="py-20 sm:py-28 bg-[#090a0c] relative">
+    <section ref={sectionRef} id="feed" className="py-24 sm:py-32 bg-[#0E0E0D] border-t border-white/10 relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        {/* Section Header: Right-aligned "Feed" with RSS Icon */}
-        <div ref={headerRef} className="flex items-center justify-end gap-3 mb-6">
-          <h2 className="font-serif font-bold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight">
-            Feed
-          </h2>
-          <FaRss className="w-8 h-8 sm:w-10 sm:h-10 text-white animate-pulse" />
+        {/* Section Header: studiors.be editorial tagging */}
+        <div ref={headerRef} className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
+          <div>
+            <div className="flex items-center gap-3 text-xs font-mono text-[#8A8985] tracking-widest uppercase mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F4F3EF]"></span>
+              <span>(05 / Journal & Veille)</span>
+            </div>
+            <h2 className="font-serif font-light text-3xl sm:text-5xl lg:text-6xl text-[#F4F3EF] tracking-tight leading-none">
+              Actualités & <span className="font-serif italic font-normal text-white/70">Publications</span>
+            </h2>
+          </div>
+          <p className="text-xs sm:text-sm text-[#8A8985] font-mono max-w-md">
+            Articles techniques, certifications cloud/frontend et réflexions sur l&apos;ingénierie web moderne.
+          </p>
         </div>
 
-        {/* Full-width Horizontal Divider Line */}
-        <div ref={dividerRef} className="w-full h-px bg-white/20 mb-12 sm:mb-16"></div>
+        {/* Full-width Divider Line */}
+        <div ref={dividerRef} className="w-full h-px bg-white/10 mb-12 sm:mb-16"></div>
 
-        {/* Feed Cards Masonry / Multi-column Grid */}
+        {/* Feed Cards Grid */}
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-start">
           {feed.map((item) => {
             const itemLike = likesState[item.id] || { count: item.likes || 128, liked: false };
@@ -161,93 +169,99 @@ const Feed: React.FC = () => {
               <div
                 key={item.id}
                 onClick={() => setSelectedItem(item)}
-                className="bg-white text-gray-900 rounded-3xl p-6 sm:p-7 shadow-2xl hover:shadow-[0_25px_50px_rgba(255,255,255,0.09)] transition-all duration-300 border border-gray-200 cursor-pointer hover:-translate-y-1 flex flex-col justify-between group"
+                className="bg-[#141413] text-[#F4F3EF] rounded-3xl p-6 sm:p-8 shadow-2xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.8)] transition-all duration-300 border border-white/10 hover:border-white/25 cursor-pointer hover:-translate-y-1.5 flex flex-col justify-between group"
               >
                 {item.type === 'certificate' ? (
                   /* Certificate Card Layout */
                   <div>
                     {item.imageUrl && (
-                      <div className="w-full h-52 sm:h-60 bg-gray-100 rounded-2xl overflow-hidden mb-5 border border-gray-200 relative group/img">
+                      <div className="w-full h-52 sm:h-60 bg-[#1C1B1A] rounded-2xl overflow-hidden mb-6 border border-white/10 relative group/img">
                         <img
                           src={item.imageUrl}
                           alt={item.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105 opacity-90 group-hover/img:opacity-100"
                         />
-                        <div className="absolute inset-0 bg-black/25 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
-                          <span className="bg-white/95 text-black px-4 py-2 rounded-full text-xs font-bold shadow-lg flex items-center gap-2 transform translate-y-2 group-hover/img:translate-y-0 transition-transform">
-                            View Certificate <HiExternalLink className="w-3.5 h-3.5" />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                          <span className="bg-[#F4F3EF] text-black px-4 py-2 rounded-full text-xs font-semibold shadow-lg flex items-center gap-2 transform translate-y-2 group-hover/img:translate-y-0 transition-transform">
+                            Voir le certificat <HiExternalLink className="w-3.5 h-3.5" />
                           </span>
                         </div>
                       </div>
                     )}
-                    <h3 className="font-sans font-bold text-gray-900 text-base sm:text-lg leading-snug mb-3 group-hover:text-blue-600 transition-colors">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[#8A8985]">
+                        Certification
+                      </span>
+                      <span className="text-xs text-[#8A8985] font-mono">{item.timeAgo}</span>
+                    </div>
+                    <h3 className="font-serif font-normal text-[#F4F3EF] text-lg sm:text-xl leading-snug mb-3 group-hover:text-white transition-colors">
                       {item.title}
                     </h3>
-                    <div className="text-xs text-gray-500 font-mono flex items-center justify-between pt-2 border-t border-gray-100">
-                      <span className="font-semibold text-gray-700">{item.badge || 'coursera.org'}</span>
-                      <span>{item.timeAgo}</span>
+                    <div className="text-xs text-[#8A8985] font-mono flex items-center justify-between pt-4 border-t border-white/10">
+                      <span className="font-medium text-[#C4C3BE]">{item.badge || 'coursera.org'}</span>
+                      <span className="text-[11px] group-hover:underline flex items-center gap-1">Détails →</span>
                     </div>
                   </div>
                 ) : (
                   /* LinkedIn Post Card Layout */
                   <div>
                     {/* LinkedIn Header */}
-                    <div className="flex items-start justify-between gap-3 mb-4">
+                    <div className="flex items-start justify-between gap-3 mb-5">
                       <div className="flex items-center gap-3">
-                        <div className="w-11 h-11 rounded-full bg-gradient-to-br from-indigo-900 to-slate-800 text-white flex items-center justify-center font-serif font-bold text-sm overflow-hidden flex-shrink-0 border border-gray-300 shadow-sm">
+                        <div className="w-11 h-11 rounded-full bg-[#1C1B1A] border border-white/15 text-[#F4F3EF] flex items-center justify-center font-serif font-bold text-sm overflow-hidden flex-shrink-0">
                           <span>{item.author.name.charAt(0)}</span>
                         </div>
                         <div className="min-w-0">
                           <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className="font-sans font-bold text-gray-900 text-sm">
+                            <span className="font-sans font-semibold text-[#F4F3EF] text-sm">
                               {item.author.name}
                             </span>
                             {item.author.connection && (
-                              <span className="text-gray-400 text-xs font-normal">
+                              <span className="text-[#8A8985] text-xs font-normal">
                                 · {item.author.connection}
                               </span>
                             )}
                           </div>
-                          <p className="text-xs text-gray-500 truncate max-w-[200px] sm:max-w-xs">
+                          <p className="text-xs text-[#8A8985] truncate max-w-[200px] sm:max-w-xs font-sans">
                             {item.author.headline}
                           </p>
-                          <span className="text-[10px] text-gray-400 block font-mono">
+                          <span className="text-[10px] text-[#8A8985] block font-mono">
                             {item.timeAgo}
                           </span>
                         </div>
                       </div>
 
-                      {/* Official Blue LinkedIn Logo */}
+                      {/* Official LinkedIn Logo */}
                       <div className="flex-shrink-0">
-                        <div className="flex items-center gap-1.5 text-[#0a66c2] font-bold text-base sm:text-lg">
-                          <FaLinkedin className="w-6 h-6" />
-                          <span className="font-sans font-black tracking-tight hidden sm:inline text-sm">
-                            LinkedIn
-                          </span>
+                        <div className="flex items-center gap-1.5 text-[#0a66c2] text-sm font-semibold">
+                          <FaLinkedin className="w-5 h-5" />
+                          <span className="font-mono text-xs hidden sm:inline">Post</span>
                         </div>
                       </div>
                     </div>
 
                     {/* LinkedIn Post Content */}
-                    <div className="font-sans text-xs sm:text-sm text-gray-800 leading-relaxed space-y-2 whitespace-pre-line line-clamp-6 mb-4">
+                    <div className="font-sans text-xs sm:text-sm text-[#C4C3BE] leading-relaxed space-y-2 whitespace-pre-line line-clamp-5 mb-5">
                       {item.content}
                     </div>
 
                     {/* LinkedIn Engagement Footer */}
-                    <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-gray-500 text-xs">
+                    <div className="pt-4 border-t border-white/10 flex items-center justify-between text-[#8A8985] text-xs">
                       <button
                         onClick={(e) => handleLikeClick(e, item.id)}
-                        className={`flex items-center gap-1.5 font-semibold transition-colors cursor-pointer px-2 py-1 rounded-lg ${
-                          itemLike.liked ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600'
+                        className={`flex items-center gap-1.5 font-medium transition-colors cursor-pointer px-3 py-1.5 rounded-full border ${
+                          itemLike.liked
+                            ? 'text-white bg-white/10 border-white/30'
+                            : 'text-[#8A8985] border-white/10 hover:border-white/20 hover:text-white'
                         }`}
                         aria-label="Like Post"
                       >
-                        <FaThumbsUp className={`w-3.5 h-3.5 ${itemLike.liked ? 'text-blue-600' : ''}`} />
+                        <FaThumbsUp className={`w-3 h-3 ${itemLike.liked ? 'text-white' : ''}`} />
                         <span>{itemLike.count}</span>
                       </button>
-                      <div className="flex items-center gap-4 text-gray-400 text-[11px]">
-                        <span>{item.comments || 16} comments</span>
-                        <span className="hover:text-gray-600">Share</span>
+                      <div className="flex items-center gap-4 text-[#8A8985] text-[11px] font-mono">
+                        <span>{item.comments || 16} réponses</span>
+                        <span className="hover:text-white">Partager</span>
                       </div>
                     </div>
                   </div>
@@ -258,7 +272,7 @@ const Feed: React.FC = () => {
         </div>
       </div>
 
-      {/* Interactive Detail Modal */}
+      {/* Interactive Detail Modal - studiors dark luxury */}
       {selectedItem && (
         <div
           ref={modalBackdropRef}
@@ -267,12 +281,12 @@ const Feed: React.FC = () => {
         >
           <div
             ref={modalBoxRef}
-            className="bg-white text-gray-900 rounded-3xl max-w-2xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl relative"
+            className="bg-[#141413] text-[#F4F3EF] border border-white/15 rounded-3xl max-w-2xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={closeModal}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition-colors cursor-pointer"
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <HiX className="w-5 h-5" />
@@ -280,20 +294,20 @@ const Feed: React.FC = () => {
 
             {selectedItem.type === 'certificate' ? (
               <div>
-                <span className="text-xs font-mono uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full font-bold">
-                  Credential
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#8A8985] bg-white/5 border border-white/10 px-3 py-1 rounded-full font-medium">
+                  Certificat Officiel
                 </span>
-                <h3 className="font-serif font-bold text-xl sm:text-2xl text-gray-900 mt-3 mb-4">
+                <h3 className="font-serif font-light text-2xl sm:text-3xl text-[#F4F3EF] mt-4 mb-4">
                   {selectedItem.title}
                 </h3>
                 {selectedItem.imageUrl && (
                   <img
                     src={selectedItem.imageUrl}
                     alt={selectedItem.title}
-                    className="w-full rounded-2xl border border-gray-200 mb-5 shadow-md"
+                    className="w-full rounded-2xl border border-white/10 mb-6 shadow-md"
                   />
                 )}
-                <p className="text-sm text-gray-700 leading-relaxed mb-6 font-sans">
+                <p className="text-sm text-[#C4C3BE] leading-relaxed mb-6 font-sans">
                   {selectedItem.content}
                 </p>
                 {selectedItem.sourceUrl && (
@@ -301,41 +315,41 @@ const Feed: React.FC = () => {
                     href={selectedItem.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0b0c0e] text-white hover:bg-black transition-all text-xs sm:text-sm font-semibold shadow-xl"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#F4F3EF] text-black hover:bg-white transition-all text-xs sm:text-sm font-semibold shadow-xl"
                   >
-                    Verify Credential on {selectedItem.badge} <HiExternalLink className="w-4 h-4" />
+                    Vérifier sur {selectedItem.badge} <HiExternalLink className="w-4 h-4" />
                   </a>
                 )}
               </div>
             ) : (
               <div>
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-100">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-900 to-slate-800 text-white flex items-center justify-center font-serif font-bold text-base">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
+                  <div className="w-12 h-12 rounded-full bg-[#1C1B1A] border border-white/15 text-[#F4F3EF] flex items-center justify-center font-serif font-bold text-base">
                     <span>{selectedItem.author.name.charAt(0)}</span>
                   </div>
                   <div>
-                    <h4 className="font-bold text-sm sm:text-base text-gray-900">
+                    <h4 className="font-semibold text-sm sm:text-base text-[#F4F3EF]">
                       {selectedItem.author.name}
                     </h4>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-[#8A8985]">
                       {selectedItem.author.headline}
                     </p>
-                    <span className="text-[11px] text-gray-400 font-mono">
+                    <span className="text-[10px] text-[#8A8985] font-mono">
                       {selectedItem.timeAgo}
                     </span>
                   </div>
                 </div>
-                <div className="font-sans text-sm sm:text-base text-gray-800 leading-relaxed space-y-4 whitespace-pre-line mb-8">
+                <div className="font-sans text-sm sm:text-base text-[#C4C3BE] leading-relaxed space-y-4 whitespace-pre-line mb-8">
                   {selectedItem.content}
                 </div>
-                <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-sm text-gray-500">
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-[#8A8985] font-mono">
                   <div className="flex items-center gap-2 text-[#0a66c2] font-semibold">
-                    <FaThumbsUp className="w-4 h-4" />
-                    <span>{likesState[selectedItem.id]?.count || selectedItem.likes || 140} Likes</span>
+                    <FaThumbsUp className="w-3.5 h-3.5" />
+                    <span>{likesState[selectedItem.id]?.count || selectedItem.likes || 140} mentions j&apos;aime</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <FaComment className="w-4 h-4" />
-                    <span>{selectedItem.comments || 24} Comments</span>
+                    <FaComment className="w-3.5 h-3.5" />
+                    <span>{selectedItem.comments || 24} commentaires</span>
                   </div>
                 </div>
               </div>

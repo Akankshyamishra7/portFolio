@@ -154,23 +154,29 @@ const ExperienceEducation: React.FC = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="experience" className="py-20 sm:py-28 bg-[#0a0a0c] relative">
+    <section ref={sectionRef} id="experience" className="py-24 sm:py-32 bg-[#0E0E0D] border-t border-white/10 relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        <div ref={headerRef} className="mb-16">
-          <h2 className="font-mono text-2xl sm:text-4xl text-white font-bold mb-3 tracking-tight">
-            ./Experience & Education
-          </h2>
-          <p className="text-gray-400 text-sm sm:text-base font-sans max-w-2xl">
-            Professional trajectory, roles shipped, and academic background.
+        <div ref={headerRef} className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 sm:mb-20">
+          <div>
+            <div className="flex items-center gap-3 text-xs font-mono text-[#8A8985] tracking-widest uppercase mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#F4F3EF]"></span>
+              <span>(06 / Trajectoire & Éducation)</span>
+            </div>
+            <h2 className="font-serif font-light text-3xl sm:text-5xl lg:text-6xl text-[#F4F3EF] tracking-tight leading-none">
+              Parcours & <span className="font-serif italic font-normal text-white/70">Expérience</span>
+            </h2>
+          </div>
+          <p className="text-xs sm:text-sm text-[#8A8985] font-mono max-w-md">
+            Historique des rôles, responsabilités d&apos;ingénierie et fondations académiques en informatique.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16">
           {/* Experience Column */}
           <div ref={expColRef}>
-            <h3 className="font-serif font-bold text-xl sm:text-2xl text-white mb-8 flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"></span>
-              Work Experience
+            <h3 className="font-serif font-normal text-xl sm:text-2xl text-[#F4F3EF] mb-8 flex items-center gap-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#F4F3EF] shadow-[0_0_12px_rgba(244,243,239,0.8)]"></span>
+              Expérience Professionnelle
             </h3>
 
             <div className="space-y-8 relative pl-7">
@@ -179,36 +185,36 @@ const ExperienceEducation: React.FC = () => {
               {/* Scrubbed Animated Laser Beam Line */}
               <div
                 ref={expBeamRef}
-                className="absolute left-[7px] top-3 bottom-3 w-0.5 bg-gradient-to-b from-white via-emerald-400 to-white shadow-[0_0_8px_rgba(255,255,255,0.9)] will-change-transform"
+                className="absolute left-[7px] top-3 bottom-3 w-0.5 bg-gradient-to-b from-[#F4F3EF] via-emerald-400 to-[#F4F3EF] shadow-[0_0_8px_rgba(255,255,255,0.9)] will-change-transform"
               ></div>
 
               {experience.map((exp, idx) => (
                 <div key={idx} className="timeline-item relative group">
                   {/* Glowing Milestone Dot */}
-                  <div className="timeline-dot absolute -left-[27px] top-3 w-3.5 h-3.5 rounded-full bg-[#0a0a0c] border-2 border-white/40 transition-all duration-300 z-10"></div>
+                  <div className="timeline-dot absolute -left-[27px] top-3 w-3.5 h-3.5 rounded-full bg-[#0E0E0D] border-2 border-white/30 transition-all duration-300 z-10"></div>
 
-                  <div className="bg-[#111215] border border-white/15 rounded-3xl p-6 sm:p-7 hover:border-white/40 hover:shadow-2xl hover:shadow-white/5 transition-all duration-300 group-hover:-translate-y-1">
+                  <div className="bg-[#141413] border border-white/10 rounded-3xl p-6 sm:p-7 hover:border-white/25 hover:shadow-2xl hover:shadow-black/50 transition-all duration-300 group-hover:-translate-y-1">
                     <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-                      <h4 className="font-sans font-bold text-base sm:text-lg text-white">
+                      <h4 className="font-sans font-semibold text-base sm:text-lg text-[#F4F3EF]">
                         {exp.role}
                       </h4>
-                      <span className="text-xs font-mono px-3 py-1 rounded-full bg-white/10 text-gray-200 border border-white/10">
+                      <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-white/5 text-[#8A8985] border border-white/10">
                         {exp.period}
                       </span>
                     </div>
 
-                    <p className="text-xs font-mono text-gray-400 mb-4">
+                    <p className="text-xs font-mono text-[#8A8985] mb-4">
                       {exp.company} · {exp.location}
                     </p>
 
-                    <p className="text-xs sm:text-sm text-gray-300 font-sans leading-relaxed mb-4">
+                    <p className="text-xs sm:text-sm text-[#C4C3BE] font-sans leading-relaxed mb-4">
                       {exp.description}
                     </p>
 
-                    <ul className="space-y-1.5 mb-5 text-xs text-gray-400 font-sans">
+                    <ul className="space-y-1.5 mb-5 text-xs text-[#8A8985] font-sans">
                       {exp.responsibilities.map((resp, rIdx) => (
                         <li key={rIdx} className="flex items-start gap-2.5">
-                          <span className="text-white/60">•</span>
+                          <span className="text-[#F4F3EF]/60">•</span>
                           <span>{resp}</span>
                         </li>
                       ))}
@@ -218,7 +224,7 @@ const ExperienceEducation: React.FC = () => {
                       {exp.technologies.map((t, tIdx) => (
                         <span
                           key={tIdx}
-                          className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/5 text-gray-400 border border-white/10 hover:border-white/30 hover:text-white transition-colors"
+                          className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/5 text-[#8A8985] border border-white/10 hover:border-white/30 hover:text-white transition-colors"
                         >
                           {t}
                         </span>
@@ -232,9 +238,9 @@ const ExperienceEducation: React.FC = () => {
 
           {/* Education Column */}
           <div ref={eduColRef}>
-            <h3 className="font-serif font-bold text-xl sm:text-2xl text-white mb-8 flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"></span>
-              Education & Degrees
+            <h3 className="font-serif font-normal text-xl sm:text-2xl text-[#F4F3EF] mb-8 flex items-center gap-3">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#F4F3EF] shadow-[0_0_12px_rgba(244,243,239,0.8)]"></span>
+              Formation & Diplômes
             </h3>
 
             <div className="space-y-8 relative pl-7">
@@ -243,29 +249,29 @@ const ExperienceEducation: React.FC = () => {
               {/* Scrubbed Animated Laser Beam Line */}
               <div
                 ref={eduBeamRef}
-                className="absolute left-[7px] top-3 bottom-3 w-0.5 bg-gradient-to-b from-white via-cyan-400 to-white shadow-[0_0_8px_rgba(255,255,255,0.9)] will-change-transform"
+                className="absolute left-[7px] top-3 bottom-3 w-0.5 bg-gradient-to-b from-[#F4F3EF] via-cyan-400 to-[#F4F3EF] shadow-[0_0_8px_rgba(255,255,255,0.9)] will-change-transform"
               ></div>
 
               {education.map((edu, idx) => (
                 <div key={idx} className="timeline-item relative group">
                   {/* Glowing Milestone Dot */}
-                  <div className="timeline-dot absolute -left-[27px] top-3 w-3.5 h-3.5 rounded-full bg-[#0a0a0c] border-2 border-white/40 transition-all duration-300 z-10"></div>
+                  <div className="timeline-dot absolute -left-[27px] top-3 w-3.5 h-3.5 rounded-full bg-[#0E0E0D] border-2 border-white/30 transition-all duration-300 z-10"></div>
 
-                  <div className="bg-[#111215] border border-white/15 rounded-3xl p-6 sm:p-7 hover:border-white/40 hover:shadow-2xl hover:shadow-white/5 transition-all duration-300 group-hover:-translate-y-1">
+                  <div className="bg-[#141413] border border-white/10 rounded-3xl p-6 sm:p-7 hover:border-white/25 hover:shadow-2xl hover:shadow-black/50 transition-all duration-300 group-hover:-translate-y-1">
                     <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-                      <h4 className="font-sans font-bold text-base sm:text-lg text-white">
+                      <h4 className="font-sans font-semibold text-base sm:text-lg text-[#F4F3EF]">
                         {edu.degree}
                       </h4>
-                      <span className="text-xs font-mono px-3 py-1 rounded-full bg-white/10 text-gray-200 border border-white/10">
+                      <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-white/5 text-[#8A8985] border border-white/10">
                         {edu.period}
                       </span>
                     </div>
 
-                    <p className="text-xs font-mono text-gray-400 mb-4">
+                    <p className="text-xs font-mono text-[#8A8985] mb-4">
                       {edu.institution} · {edu.location}
                     </p>
 
-                    <p className="text-xs sm:text-sm text-gray-300 font-sans leading-relaxed mb-4">
+                    <p className="text-xs sm:text-sm text-[#C4C3BE] font-sans leading-relaxed mb-4">
                       {edu.description}
                     </p>
 
@@ -273,7 +279,7 @@ const ExperienceEducation: React.FC = () => {
                       {edu.highlights.map((h, hIdx) => (
                         <span
                           key={hIdx}
-                          className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/5 text-gray-300 border border-white/10 hover:border-white/30 hover:text-white transition-colors"
+                          className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/5 text-[#8A8985] border border-white/10 hover:border-white/30 hover:text-white transition-colors"
                         >
                           {h}
                         </span>

@@ -84,28 +84,28 @@ const ArticlesModal: React.FC<ArticlesModalProps> = ({ isOpen, onClose, onScroll
     >
       <div
         ref={boxRef}
-        className="bg-[#121316] text-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-white/20 shadow-2xl relative max-h-[90vh] overflow-y-auto will-change-transform"
+        className="bg-[#141413] text-[#F4F3EF] rounded-3xl max-w-2xl w-full p-6 sm:p-8 border border-white/15 shadow-2xl relative max-h-[90vh] overflow-y-auto will-change-transform"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={handleClose}
-          className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+          className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-[#8A8985] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
           aria-label="Close modal"
         >
           <HiX className="w-5 h-5" />
         </button>
 
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white">
-            <FaBookOpen className="w-5 h-5" />
+        <div className="flex items-center gap-3.5 mb-6">
+          <div className="w-10 h-10 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-[#F4F3EF]">
+            <FaBookOpen className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="font-serif font-bold text-xl sm:text-2xl text-white">
-              Technical Articles & Writing
+            <div className="text-[10px] font-mono uppercase tracking-widest text-[#8A8985] mb-0.5">
+              (Index des écrits)
+            </div>
+            <h3 className="font-serif font-light text-xl sm:text-2xl text-[#F4F3EF]">
+              Articles Techniques & <span className="font-serif italic font-normal text-white/70">Recherches</span>
             </h3>
-            <p className="text-xs text-gray-400 font-sans">
-              Deep dives on web engineering, AI systems, and systems programming
-            </p>
           </div>
         </div>
 
@@ -113,16 +113,16 @@ const ArticlesModal: React.FC<ArticlesModalProps> = ({ isOpen, onClose, onScroll
           {articles.map((art, idx) => (
             <div
               key={idx}
-              className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-white/30 transition-all text-left"
+              className="p-5 rounded-2xl bg-[#1C1B1A] border border-white/10 hover:border-white/25 transition-all text-left group"
             >
-              <div className="flex items-center justify-between text-xs font-mono text-gray-400 mb-2">
+              <div className="flex items-center justify-between text-xs font-mono text-[#8A8985] mb-2">
                 <span>{art.date}</span>
                 <span>{art.readTime}</span>
               </div>
-              <h4 className="font-sans font-bold text-base sm:text-lg text-white mb-2 leading-snug">
+              <h4 className="font-sans font-semibold text-base sm:text-lg text-[#F4F3EF] mb-2 leading-snug group-hover:text-white transition-colors">
                 {art.title}
               </h4>
-              <p className="text-xs sm:text-sm text-gray-300 font-sans leading-relaxed mb-4">
+              <p className="text-xs sm:text-sm text-[#C4C3BE] font-sans leading-relaxed mb-4">
                 {art.snippet}
               </p>
               <div className="flex items-center justify-between">
@@ -130,7 +130,7 @@ const ArticlesModal: React.FC<ArticlesModalProps> = ({ isOpen, onClose, onScroll
                   {art.tags.map((t, tIdx) => (
                     <span
                       key={tIdx}
-                      className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/10 text-gray-300"
+                      className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[#8A8985]"
                     >
                       {t}
                     </span>
@@ -141,9 +141,9 @@ const ArticlesModal: React.FC<ArticlesModalProps> = ({ isOpen, onClose, onScroll
                     handleClose();
                     onScrollToFeed();
                   }}
-                  className="text-xs font-sans text-white hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-xs font-mono text-[#F4F3EF] hover:underline flex items-center gap-1 cursor-pointer"
                 >
-                  View in Feed <HiExternalLink className="w-3 h-3" />
+                  Voir dans le Feed <HiExternalLink className="w-3 h-3" />
                 </button>
               </div>
             </div>
