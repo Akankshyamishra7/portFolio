@@ -61,9 +61,6 @@ const Header: React.FC<HeaderProps> = ({ onOpenArticles, onOpenResume, onOpenCon
             </div>
             <span className="font-sans font-bold text-sm sm:text-base tracking-tight text-[#F4F3EF]">
               {profile.firstName.toLowerCase()}
-              <span className="font-serif italic font-normal text-[#8A8985]">
-                .{profile.lastName.toLowerCase()}
-              </span>
             </span>
           </a>
 

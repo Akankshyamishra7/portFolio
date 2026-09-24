@@ -314,8 +314,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               className="inline-flex items-center mx-6 font-mono text-xs tracking-widest text-[#8A8985] uppercase"
             >
               <span>{profile.firstName.toLowerCase()}</span>
-              <span className="italic font-serif text-white mx-2">.{profile.lastName.toLowerCase()}</span>
-              <span className="text-gray-500">· full-stack developer</span>
+              <span className="text-gray-500 ml-2">· full-stack developer</span>
               <span className="mx-4 text-emerald-400">✦</span>
               <span>portfolio 2026</span>
               <span className="mx-4 text-gray-600">/</span>

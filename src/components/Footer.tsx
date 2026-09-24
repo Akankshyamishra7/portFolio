@@ -131,9 +131,6 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
               </div>
               <span className="font-bold text-base text-white tracking-tight">
                 {profile.firstName.toLowerCase()}
-                <span className="font-serif italic font-normal text-[#8A8985]">
-                  .{profile.lastName.toLowerCase()}
-                </span>
               </span>
             </div>
             <p className="text-[#8A8985] max-w-sm leading-relaxed">
@@ -218,7 +215,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
           className="pt-10 border-t border-white/10 flex flex-col items-center justify-center text-center will-change-transform overflow-hidden w-full"
         >
           <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-[#5C5B57] mb-6 text-center sm:text-left">
-            <span>©2026 Akankshya Mishra</span>
+            <span>©2026 Akankshya</span>
             <span className="hidden sm:inline">Tous droits réservés</span>
             <button
               onClick={scrollToTop}
@@ -229,12 +226,9 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
             </button>
           </div>
 
-          <div className="w-full select-none tracking-tighter leading-[0.88] sm:leading-none text-[#F4F3EF] opacity-90 py-2 flex flex-col sm:flex-row items-center justify-center text-center">
-            <span className="font-sans font-black text-[11.8vw] xs:text-[12.5vw] sm:text-[9.5vw] lg:text-[8.5rem] uppercase block sm:inline">
+          <div className="w-full select-none tracking-tighter leading-none text-[#F4F3EF] opacity-90 py-2 flex items-center justify-center text-center">
+            <span className="font-sans font-black text-[12.5vw] sm:text-[11vw] lg:text-[8.5rem] uppercase">
               {profile.firstName}
-            </span>
-            <span className="font-serif italic font-normal text-[11.8vw] xs:text-[12.5vw] sm:text-[9.5vw] lg:text-[8.5rem] text-gray-400 sm:ml-5 block sm:inline">
-              .{profile.lastName.toLowerCase()}
             </span>
           </div>
         </div>
