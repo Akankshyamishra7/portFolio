@@ -190,7 +190,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
       <div className="absolute inset-0 pointer-events-none dot-matrix opacity-25 z-0"></div>
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-br from-white/6 to-transparent rounded-full blur-3xl pointer-events-none z-0"></div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 w-full my-auto">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-10 w-full my-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           {/* Left Column: studiors.be Massive Kinetic Typography */}
           <div className="lg:col-span-8">
@@ -198,7 +198,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               <span className="block overflow-hidden py-1">
                 <span
                   ref={line1Ref}
-                  className="block font-sans font-black text-[15vw] sm:text-[11vw] lg:text-[8rem] tracking-tighter uppercase will-change-transform"
+                  className="block font-sans font-black text-[11.2vw] xs:text-[12vw] sm:text-[11vw] lg:text-[8rem] tracking-tighter uppercase will-change-transform"
                 >
                   {profile.firstName}
                 </span>
@@ -207,7 +207,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               <span className="block overflow-hidden py-1">
                 <span
                   ref={line2Ref}
-                  className="block font-serif italic font-normal text-[15vw] sm:text-[11vw] lg:text-[7.8rem] text-gray-300 ml-4 sm:ml-12 will-change-transform"
+                  className="block font-serif italic font-normal text-[11.2vw] xs:text-[12vw] sm:text-[11vw] lg:text-[7.8rem] text-gray-300 ml-2 sm:ml-12 will-change-transform"
                 >
                   Full-stack
                 </span>
@@ -216,7 +216,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               <span className="block overflow-hidden py-1">
                 <span
                   ref={line3Ref}
-                  className="block font-sans font-black text-[15vw] sm:text-[11vw] lg:text-[8rem] tracking-tighter uppercase will-change-transform"
+                  className="block font-sans font-black text-[11.2vw] xs:text-[12vw] sm:text-[11vw] lg:text-[8rem] tracking-tighter uppercase will-change-transform"
                 >
                   Developer
                 </span>

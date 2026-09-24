@@ -45,7 +45,7 @@ const Header: React.FC<HeaderProps> = ({ onOpenArticles, onOpenResume, onOpenCon
             : 'bg-transparent py-5 sm:py-7'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-10 flex items-center justify-between">
           {/* Akankshya Mishra Personal Monogram & Name */}
           <a
             href="#hero"

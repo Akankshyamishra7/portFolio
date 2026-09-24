@@ -211,7 +211,7 @@ const Projects: React.FC = () => {
 
   return (
     <section ref={sectionRef} id="projects" className="py-20 sm:py-28 bg-[#0E0E0D] border-t border-white/10 relative">
-      <div className="max-w-7xl mx-auto px-6 sm:px-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-10">
         {/* Projects Section Header */}
         <div ref={headerRef} className="mb-14">
           <div className="flex items-center justify-between mb-3">

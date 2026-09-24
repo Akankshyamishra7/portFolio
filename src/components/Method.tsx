@@ -110,7 +110,7 @@ export const Method: React.FC = () => {
       id="methode"
       className="py-20 sm:py-28 bg-[#0E0E0D] border-t border-white/10 relative"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-10">
         {/* Method Header */}
         <div ref={headRef} className="mb-14">
           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-3">
@@ -131,7 +131,7 @@ export const Method: React.FC = () => {
               <span className="font-semibold text-white">Four phases. </span>
               <em>Zero shortcuts.</em>
             </p>
-            <div className="flex items-center gap-6 font-mono text-xs text-[#8A8985] overflow-x-auto">
+            <div className="flex items-center gap-4 sm:gap-6 font-mono text-xs text-[#8A8985] overflow-x-auto whitespace-nowrap py-1">
               <span>01 Discover</span>
               <span>·</span>
               <span>02 Design</span>

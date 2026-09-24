@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <SmoothScrollProvider>
       <CustomCursor />
-      <div className="min-h-screen bg-[#0E0E0D] text-[#F4F3EF] selection:bg-[#F4F3EF] selection:text-black">
+      <div className="min-h-screen bg-[#0E0E0D] text-[#F4F3EF] selection:bg-[#F4F3EF] selection:text-black overflow-x-hidden w-full max-w-full">
       {/* Top Navigation */}
       <Header
         onOpenArticles={() => setIsArticlesOpen(true)}
@@ -44,7 +44,7 @@ export default function Home() {
       />
 
       {/* Main Sections */}
-      <main id="main-content" className="relative z-10">
+      <main id="main-content" className="relative z-10 overflow-x-hidden w-full max-w-full">
         {/* Section 1: Hero */}
         <Hero onOpenResume={() => setIsResumeOpen(true)} />
 
