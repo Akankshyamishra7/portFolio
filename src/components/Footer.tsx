@@ -226,7 +226,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
             </button>
           </div>
 
-          <div className="w-full flex justify-between items-baseline select-none font-sans font-black text-[12.5vw] sm:text-[10.5vw] lg:text-[8.2rem] uppercase opacity-90 py-2 px-2 sm:px-4">
+          <div className="w-full flex justify-between items-baseline select-none font-sans font-black text-[12vw] sm:text-[10vw] lg:text-[6.8rem] xl:text-[7.8rem] uppercase opacity-90 py-2 px-3 sm:px-6">
             {(profile.firstName.toUpperCase()).split('').map((char, i) => (
               <span key={i} className={`inline-block ${i === profile.firstName.length - 1 ? 'pr-2 sm:pr-3' : ''}`}>
                 {char}

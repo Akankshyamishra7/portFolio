@@ -198,7 +198,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               <span className="block overflow-hidden py-1.5 px-1.5 sm:px-3 w-full">
                 <span
                   ref={line1Ref}
-                  className="flex justify-between items-baseline w-full font-sans font-black text-[13vw] sm:text-[10.8vw] lg:text-[7.6rem] uppercase will-change-transform"
+                  className="flex justify-between items-baseline w-full font-sans font-black text-[13vw] sm:text-[10.5vw] lg:text-[4.6rem] xl:text-[5.3rem] uppercase will-change-transform"
                 >
                   {(profile.firstName.toUpperCase()).split('').map((char, i) => (
                     <span
@@ -214,7 +214,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               <span className="block overflow-hidden py-1.5 px-1.5 sm:px-3 w-full">
                 <span
                   ref={line2Ref}
-                  className="flex justify-between items-baseline w-full font-serif italic font-normal text-[12.5vw] sm:text-[10.3vw] lg:text-[7.3rem] text-gray-300 will-change-transform"
+                  className="flex justify-between items-baseline w-full font-serif italic font-normal text-[12.5vw] sm:text-[10vw] lg:text-[4.3rem] xl:text-[5rem] text-gray-300 will-change-transform"
                 >
                   {'Full-stack'.split('').map((char, i) => (
                     <span
@@ -230,7 +230,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
               <span className="block overflow-hidden py-1.5 px-1.5 sm:px-3 w-full">
                 <span
                   ref={line3Ref}
-                  className="flex justify-between items-baseline w-full font-sans font-black text-[13vw] sm:text-[10.8vw] lg:text-[7.6rem] uppercase will-change-transform"
+                  className="flex justify-between items-baseline w-full font-sans font-black text-[13vw] sm:text-[10.5vw] lg:text-[4.6rem] xl:text-[5.3rem] uppercase will-change-transform"
                 >
                   {'DEVELOPER'.split('').map((char, i) => (
                     <span
