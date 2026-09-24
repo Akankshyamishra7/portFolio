@@ -226,10 +226,10 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
             </button>
           </div>
 
-          <div className="w-full select-none tracking-tighter leading-none text-[#F4F3EF] opacity-90 py-2 flex items-center justify-center text-center">
-            <span className="font-sans font-black text-[13vw] sm:text-[11vw] lg:text-[8.5rem] uppercase w-full">
-              {profile.firstName}
-            </span>
+          <div className="w-full flex justify-between items-baseline select-none font-sans font-black text-[13.5vw] sm:text-[11vw] lg:text-[8.5rem] uppercase opacity-90 py-2">
+            {(profile.firstName.toUpperCase()).split('').map((char, i) => (
+              <span key={i} className="inline-block">{char}</span>
+            ))}
           </div>
         </div>
       </div>

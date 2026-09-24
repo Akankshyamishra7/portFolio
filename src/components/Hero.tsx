@@ -193,32 +193,38 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-10 w-full my-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           {/* Left Column: studiors.be Massive Kinetic Typography */}
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-8 w-full">
             <h1 className="select-none tracking-tight leading-[0.88] text-[#F4F3EF] w-full">
               <span className="block overflow-hidden py-1 w-full">
                 <span
                   ref={line1Ref}
-                  className="block font-sans font-black text-[13vw] sm:text-[11vw] lg:text-[8rem] tracking-tighter uppercase will-change-transform w-full"
+                  className="flex justify-between items-baseline w-full font-sans font-black text-[13.5vw] sm:text-[11vw] lg:text-[7.8rem] uppercase will-change-transform"
                 >
-                  {profile.firstName}
+                  {(profile.firstName.toUpperCase()).split('').map((char, i) => (
+                    <span key={i} className="inline-block">{char}</span>
+                  ))}
                 </span>
               </span>
 
               <span className="block overflow-hidden py-1 w-full">
                 <span
                   ref={line2Ref}
-                  className="block font-serif italic font-normal text-[13vw] sm:text-[11vw] lg:text-[7.8rem] text-gray-300 ml-2 sm:ml-12 will-change-transform"
+                  className="flex justify-between items-baseline w-full font-serif italic font-normal text-[13vw] sm:text-[10.5vw] lg:text-[7.5rem] text-gray-300 will-change-transform"
                 >
-                  Full-stack
+                  {'Full-stack'.split('').map((char, i) => (
+                    <span key={i} className="inline-block">{char}</span>
+                  ))}
                 </span>
               </span>
 
               <span className="block overflow-hidden py-1 w-full">
                 <span
                   ref={line3Ref}
-                  className="block font-sans font-black text-[13vw] sm:text-[11vw] lg:text-[8rem] tracking-tighter uppercase will-change-transform w-full"
+                  className="flex justify-between items-baseline w-full font-sans font-black text-[13.5vw] sm:text-[11vw] lg:text-[7.8rem] uppercase will-change-transform"
                 >
-                  Developer
+                  {'DEVELOPER'.split('').map((char, i) => (
+                    <span key={i} className="inline-block">{char}</span>
+                  ))}
                 </span>
               </span>
             </h1>
