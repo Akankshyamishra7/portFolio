@@ -212,7 +212,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
         {/* studiors.be Giant Wordmark at Bottom */}
         <div
           ref={wordmarkRef}
-          className="pt-10 border-t border-white/10 flex flex-col items-center justify-center text-center will-change-transform overflow-hidden w-full"
+          className="pt-10 border-t border-white/10 flex flex-col items-center justify-center text-center will-change-transform w-full"
         >
           <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-[#5C5B57] mb-6 text-center sm:text-left">
             <span>©2026 Akankshya</span>
@@ -226,9 +226,11 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
             </button>
           </div>
 
-          <div className="w-full flex justify-between items-baseline select-none font-sans font-black text-[13.5vw] sm:text-[11vw] lg:text-[8.5rem] uppercase opacity-90 py-2">
+          <div className="w-full flex justify-between items-baseline select-none font-sans font-black text-[12.5vw] sm:text-[10.5vw] lg:text-[8.2rem] uppercase opacity-90 py-2 px-2 sm:px-4">
             {(profile.firstName.toUpperCase()).split('').map((char, i) => (
-              <span key={i} className="inline-block">{char}</span>
+              <span key={i} className={`inline-block ${i === profile.firstName.length - 1 ? 'pr-2 sm:pr-3' : ''}`}>
+                {char}
+              </span>
             ))}
           </div>
         </div>

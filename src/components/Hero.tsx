@@ -195,35 +195,50 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
           {/* Left Column: studiors.be Massive Kinetic Typography */}
           <div className="lg:col-span-8 w-full">
             <h1 className="select-none tracking-tight leading-[0.88] text-[#F4F3EF] w-full">
-              <span className="block overflow-hidden py-1 w-full">
+              <span className="block overflow-hidden py-1.5 px-1.5 sm:px-3 w-full">
                 <span
                   ref={line1Ref}
-                  className="flex justify-between items-baseline w-full font-sans font-black text-[13.5vw] sm:text-[11vw] lg:text-[7.8rem] uppercase will-change-transform"
+                  className="flex justify-between items-baseline w-full font-sans font-black text-[13vw] sm:text-[10.8vw] lg:text-[7.6rem] uppercase will-change-transform"
                 >
                   {(profile.firstName.toUpperCase()).split('').map((char, i) => (
-                    <span key={i} className="inline-block">{char}</span>
+                    <span
+                      key={i}
+                      className={`inline-block ${i === profile.firstName.length - 1 ? 'pr-2 sm:pr-3' : ''}`}
+                    >
+                      {char}
+                    </span>
                   ))}
                 </span>
               </span>
 
-              <span className="block overflow-hidden py-1 w-full">
+              <span className="block overflow-hidden py-1.5 px-1.5 sm:px-3 w-full">
                 <span
                   ref={line2Ref}
-                  className="flex justify-between items-baseline w-full font-serif italic font-normal text-[13vw] sm:text-[10.5vw] lg:text-[7.5rem] text-gray-300 will-change-transform"
+                  className="flex justify-between items-baseline w-full font-serif italic font-normal text-[12.5vw] sm:text-[10.3vw] lg:text-[7.3rem] text-gray-300 will-change-transform"
                 >
                   {'Full-stack'.split('').map((char, i) => (
-                    <span key={i} className="inline-block">{char}</span>
+                    <span
+                      key={i}
+                      className={`inline-block ${i === 'Full-stack'.length - 1 ? 'pr-1.5 sm:pr-2' : ''}`}
+                    >
+                      {char}
+                    </span>
                   ))}
                 </span>
               </span>
 
-              <span className="block overflow-hidden py-1 w-full">
+              <span className="block overflow-hidden py-1.5 px-1.5 sm:px-3 w-full">
                 <span
                   ref={line3Ref}
-                  className="flex justify-between items-baseline w-full font-sans font-black text-[13.5vw] sm:text-[11vw] lg:text-[7.8rem] uppercase will-change-transform"
+                  className="flex justify-between items-baseline w-full font-sans font-black text-[13vw] sm:text-[10.8vw] lg:text-[7.6rem] uppercase will-change-transform"
                 >
                   {'DEVELOPER'.split('').map((char, i) => (
-                    <span key={i} className="inline-block">{char}</span>
+                    <span
+                      key={i}
+                      className={`inline-block ${i === 'DEVELOPER'.length - 1 ? 'pr-2 sm:pr-3' : ''}`}
+                    >
+                      {char}
+                    </span>
                   ))}
                 </span>
               </span>
