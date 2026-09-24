@@ -194,29 +194,29 @@ const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
           {/* Left Column: studiors.be Massive Kinetic Typography */}
           <div className="lg:col-span-8">
-            <h1 className="select-none tracking-tight leading-[0.88] text-[#F4F3EF]">
-              <span className="block overflow-hidden py-1">
+            <h1 className="select-none tracking-tight leading-[0.88] text-[#F4F3EF] w-full">
+              <span className="block overflow-hidden py-1 w-full">
                 <span
                   ref={line1Ref}
-                  className="block font-sans font-black text-[11.2vw] xs:text-[12vw] sm:text-[11vw] lg:text-[8rem] tracking-tighter uppercase will-change-transform"
+                  className="block font-sans font-black text-[13vw] sm:text-[11vw] lg:text-[8rem] tracking-tighter uppercase will-change-transform w-full"
                 >
                   {profile.firstName}
                 </span>
               </span>
 
-              <span className="block overflow-hidden py-1">
+              <span className="block overflow-hidden py-1 w-full">
                 <span
                   ref={line2Ref}
-                  className="block font-serif italic font-normal text-[11.2vw] xs:text-[12vw] sm:text-[11vw] lg:text-[7.8rem] text-gray-300 ml-2 sm:ml-12 will-change-transform"
+                  className="block font-serif italic font-normal text-[13vw] sm:text-[11vw] lg:text-[7.8rem] text-gray-300 ml-2 sm:ml-12 will-change-transform"
                 >
                   Full-stack
                 </span>
               </span>
 
-              <span className="block overflow-hidden py-1">
+              <span className="block overflow-hidden py-1 w-full">
                 <span
                   ref={line3Ref}
-                  className="block font-sans font-black text-[11.2vw] xs:text-[12vw] sm:text-[11vw] lg:text-[8rem] tracking-tighter uppercase will-change-transform"
+                  className="block font-sans font-black text-[13vw] sm:text-[11vw] lg:text-[8rem] tracking-tighter uppercase will-change-transform w-full"
                 >
                   Developer
                 </span>

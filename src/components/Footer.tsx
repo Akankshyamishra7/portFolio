@@ -227,7 +227,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenContact }) => {
           </div>
 
           <div className="w-full select-none tracking-tighter leading-none text-[#F4F3EF] opacity-90 py-2 flex items-center justify-center text-center">
-            <span className="font-sans font-black text-[12.5vw] sm:text-[11vw] lg:text-[8.5rem] uppercase">
+            <span className="font-sans font-black text-[13vw] sm:text-[11vw] lg:text-[8.5rem] uppercase w-full">
               {profile.firstName}
             </span>
           </div>
